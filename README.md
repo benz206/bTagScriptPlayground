@@ -20,7 +20,7 @@ TagScript is a templating language primarily used in Discord bots to create dyna
 
 ### Accessing the Playground
 
-You can start using the bTagScript Playground by visiting the following link: [bTagScript Playground](https://leg3ndary.github.io/bTagScriptPlayground)
+You can start using the bTagScript Playground by visiting the following link: [bTagScript Playground](https://benz206.github.io/bTagScriptPlayground)
 
 ### Using the Playground
 
@@ -48,7 +48,7 @@ Here’s a simple example to demonstrate how to use the bTagScript Playground:
 
 ## Contributing
 
-We welcome contributions from the community to improve the bTagScript Playground. If you have suggestions, bug reports, or want to contribute code, please visit our GitHub repository: [bTagScript Playground GitHub](https://github.com/leg3ndary/bTagScriptPlayground)
+We welcome contributions from the community to improve the bTagScript Playground. If you have suggestions, bug reports, or want to contribute code, please visit our GitHub repository: [bTagScript Playground GitHub](https://github.com/benz206/bTagScriptPlayground)
 
 ## Support
 

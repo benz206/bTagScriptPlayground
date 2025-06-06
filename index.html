@@ -2,486 +2,932 @@
 
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <title>Playground - _Leg3ndary</title>
+        <link rel="icon" href="assets/images/tagscript-logo.ico" />
+        <!-- plugins:css -->
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Playground - _Leg3ndary</title>
-    <link rel="icon" href="assets/images/tagscript-logo.ico">
-    <!-- plugins:css -->
+        <link
+            rel="stylesheet"
+            href="assets/vendors/mdi/css/materialdesignicons.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="assets/vendors/css/vendor.bundle.base.css"
+        />
+        <!-- endinject -->
+        <!-- Plugin css for this page -->
+        <link
+            rel="stylesheet"
+            href="assets/vendors/jvectormap/jquery-jvectormap.css"
+        />
+        <link
+            rel="stylesheet"
+            href="assets/vendors/flag-icon-css/css/flag-icon.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="assets/vendors/owl-carousel-2/owl.carousel.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="assets/vendors/owl-carousel-2/owl.theme.default.min.css"
+        />
+        "
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.2/codemirror.min.css"
+            integrity="sha512-MWdvo/Qqcf4pY1ecQUB1uBn0qLp19U/qJ1Rpp2BDZeuBA7YsFEwkvqR/+aG4BroPiAYDunKJ6X8R/Pmdt3p7oA=="
+            crossorigin="anonymous"
+        />
+        <!-- End plugin css for this page -->
+        <!-- inject:css -->
+        <!-- endinject -->
+        <!-- Layout styles -->
+        <link rel="stylesheet" href="assets/css/style.css" />
+        <link rel="stylesheet" href="assets/css/misc.css" />
+        <link rel="stylesheet" href="assets/css/tse.css" />
+        <!-- End layout styles -->
+        <meta property="og:title" content="Tagscript Playground" />
+        <meta property="og:type" content="Site Content" />
+        <meta
+            property="og:url"
+            content="https://benz206.github.io/bTagScriptPlayground/"
+        />
+        <meta property="og:site_name" content="By _Leg3ndary#0001" />
+        <meta property="og:image" content="https://i.imgur.com/AcQAnss.png" />
+        <meta
+            property="og:description"
+            content="A TagScript playground for you to test tags!"
+        />
+        <meta name="theme-color" content="#2980B9" />
+    </head>
 
-    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="assets/vendors/jvectormap/jquery-jvectormap.css">
-    <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" href="assets/vendors/owl-carousel-2/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/vendors/owl-carousel-2/owl.theme.default.min.css">"
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.2/codemirror.min.css"
-        integrity="sha512-MWdvo/Qqcf4pY1ecQUB1uBn0qLp19U/qJ1Rpp2BDZeuBA7YsFEwkvqR/+aG4BroPiAYDunKJ6X8R/Pmdt3p7oA=="
-        crossorigin="anonymous" />
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/misc.css">
-    <link rel="stylesheet" href="assets/css/tse.css">
-    <!-- End layout styles -->
-    <meta property="og:title" content="Tagscript Playground" />
-    <meta property="og:type" content="Site Content" />
-    <meta property="og:url" content="https://leg3ndary.github.io/bTagScriptPlayground/" />
-    <meta property="og:site_name" content="By _Leg3ndary#0001">
-    <meta property="og:image" content="https://i.imgur.com/AcQAnss.png" />
-    <meta property="og:description" content="A TagScript playground for you to test tags!" />
-    <meta name="theme-color" content="#2980B9">
-</head>
-
-<body>
-    <div class="container-scroller">
-        <!-- partial:partials/_sidebar.html -->
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
-            <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-                <a class="sidebar-brand brand-logo" href="index.html"><img src="assets/images/TagScriptLogo.svg"
-                        alt="logo" /></a>
-                <a class="sidebar-brand brand-logo-mini" href="index.html"><img src="assets/images/TagScriptLogo.svg"
-                        alt="logo" /></a>
-            </div>
-            <ul class="nav">
-                <li class="nav-item nav-category">
-                    <span class="nav-link">Navigation</span>
-                </li>
-                <li class="nav-item menu-items">
-                    <a class="nav-link" href="index.html">
-                        <span class="menu-icon">
-                            <i class="mdi mdi-settings"></i>
-                        </span>
-                        <span class="menu-title">Playground</span>
-                    </a>
-                </li>
-                <li class="nav-item menu-items">
-                    <a class="nav-link" href="docs.html">
-                        <span class="menu-icon">
-                            <i class="mdi mdi-file-document-box"></i>
-                        </span>
-                        <span class="menu-title">Docs</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <!-- partial -->
-        <div class="container-fluid page-body-wrapper">
-            <!-- partial:partials/_navbar.html -->
-            <nav class="navbar p-0 fixed-top d-flex flex-row">
-                <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-                    <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/TagScriptLogo.svg"
-                            alt="logo" /></a>
+    <body>
+        <div class="container-scroller">
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <div
+                    class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top"
+                >
+                    <a class="sidebar-brand brand-logo" href="index.html"
+                        ><img src="assets/images/TagScriptLogo.svg" alt="logo"
+                    /></a>
+                    <a class="sidebar-brand brand-logo-mini" href="index.html"
+                        ><img src="assets/images/TagScriptLogo.svg" alt="logo"
+                    /></a>
                 </div>
-                <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
-                    <button class="navbar-toggler navbar-toggler align-self-center" type="button"
-                        data-toggle="minimize">
-                        <span class="mdi mdi-menu"></span>
-                    </button>
-                    <ul class="navbar-nav w-100">
-                        <li class="nav-item w-100">
-                            <form class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
-                                <input type="text" class="form-control" placeholder="This does nothing as of now">
-                            </form>
-                        </li>
-                    </ul>
-                    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
-                        data-toggle="offcanvas">
-                        <span class="mdi mdi-format-line-spacing"></span>
-                    </button>
-                </div>
+                <ul class="nav">
+                    <li class="nav-item nav-category">
+                        <span class="nav-link">Navigation</span>
+                    </li>
+                    <li class="nav-item menu-items">
+                        <a class="nav-link" href="index.html">
+                            <span class="menu-icon">
+                                <i class="mdi mdi-settings"></i>
+                            </span>
+                            <span class="menu-title">Playground</span>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-items">
+                        <a class="nav-link" href="docs.html">
+                            <span class="menu-icon">
+                                <i class="mdi mdi-file-document-box"></i>
+                            </span>
+                            <span class="menu-title">Docs</span>
+                        </a>
+                    </li>
+                </ul>
             </nav>
             <!-- partial -->
-            <div class="main-panel">
-                <div class="content-wrapper">
-                    <div class="page-header">
-                        <h3 class="page-title" id="counter"> Playground </h3>
+            <div class="container-fluid page-body-wrapper">
+                <!-- partial:partials/_navbar.html -->
+                <nav class="navbar p-0 fixed-top d-flex flex-row">
+                    <div
+                        class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center"
+                    >
+                        <a
+                            class="navbar-brand brand-logo-mini"
+                            href="index.html"
+                            ><img
+                                src="assets/images/TagScriptLogo.svg"
+                                alt="logo"
+                        /></a>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Editor</h4>
-                                    <p class="card-description">Put your tagscript here! Please be patient, this may
-                                        take a while to process the first time around.</p>
-                                    <div class="form-group">
-                                        <textarea class="form-control" id="tagscript" rows="5"
-                                            placeholder="Put some tagscript here!"></textarea>
+                    <div
+                        class="navbar-menu-wrapper flex-grow d-flex align-items-stretch"
+                    >
+                        <button
+                            class="navbar-toggler navbar-toggler align-self-center"
+                            type="button"
+                            data-toggle="minimize"
+                        >
+                            <span class="mdi mdi-menu"></span>
+                        </button>
+                        <ul class="navbar-nav w-100">
+                            <li class="nav-item w-100">
+                                <form
+                                    class="nav-link mt-2 mt-md-0 d-none d-lg-flex search"
+                                >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="This does nothing as of now"
+                                    />
+                                </form>
+                            </li>
+                        </ul>
+                        <button
+                            class="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
+                            type="button"
+                            data-toggle="offcanvas"
+                        >
+                            <span class="mdi mdi-format-line-spacing"></span>
+                        </button>
+                    </div>
+                </nav>
+                <!-- partial -->
+                <div class="main-panel">
+                    <div class="content-wrapper">
+                        <div class="page-header">
+                            <h3 class="page-title" id="counter">Playground</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Editor</h4>
+                                        <p class="card-description">
+                                            Put your tagscript here! Please be
+                                            patient, this may take a while to
+                                            process the first time around.
+                                        </p>
+                                        <div class="form-group">
+                                            <textarea
+                                                class="form-control"
+                                                id="tagscript"
+                                                rows="5"
+                                                placeholder="Put some tagscript here!"
+                                            ></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    placeholder="Tag URL or ID"
+                                                    aria-label="Import Carl Tag"
+                                                    aria-describedby="basic-addon2"
+                                                    id="carlImportURL"
+                                                />
+                                                <div class="input-group-append">
+                                                    <button
+                                                        class="btn btn-sm btn-primary icon-btn d-flex justify-content-center align-items-center"
+                                                        type="button"
+                                                        id="carlImport"
+                                                    >
+                                                        <span
+                                                            class="disabled-icon spinner-border spinner-border-sm"
+                                                            role="status"
+                                                            aria-hidden="true"
+                                                        ></span>
+                                                        <i
+                                                            class="icon mdi mdi-play-circle btn-icon-prepend"
+                                                        ></i>
+                                                        <span class="text"
+                                                            >Import</span
+                                                        >
+                                                        <span
+                                                            class="disabled-text"
+                                                            >Loading...</span
+                                                        >
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            class="btn btn-block btn-md btn-success mr-2 icon-btn d-flex justify-content-center align-items-center"
+                                            id="processButton"
+                                        >
+                                            <span
+                                                class="disabled-icon spinner-border spinner-border-sm"
+                                                role="status"
+                                                aria-hidden="true"
+                                            ></span>
+                                            <i
+                                                class="icon mdi mdi-play-circle btn-icon-prepend"
+                                            ></i>
+                                            <span class="text">Process</span>
+                                            <span class="disabled-text"
+                                                >Loading...</span
+                                            >
+                                        </button>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Tag URL or ID"
-                                                aria-label="Import Carl Tag" aria-describedby="basic-addon2"
-                                                id="carlImportURL">
-                                            <div class="input-group-append">
-                                                <button
-                                                    class="btn btn-sm btn-primary icon-btn d-flex justify-content-center align-items-center"
-                                                    type="button" id="carlImport">
-                                                    <span class="disabled-icon spinner-border spinner-border-sm"
-                                                        role="status" aria-hidden="true"></span>
-                                                    <i class="icon mdi mdi-play-circle btn-icon-prepend"></i>
-                                                    <span class="text">Import</span>
-                                                    <span class="disabled-text">Loading...</span>
-                                                </button>
+                                </div>
+                            </div>
+                            <div class="col-md-6 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Output</h4>
+                                        <p class="card-description">
+                                            Your tagscript output will show
+                                            here! Please note that this runs on
+                                            a different engine from carl-bot,
+                                            that means new blocks are added and
+                                            you can see them
+                                            <a
+                                                href="https://btagscript.readthedocs.io/en/latest/APIReference/block.html"
+                                                target="_blank"
+                                                >here</a
+                                            >, an example of a common variable
+                                            name is count.
+                                        </p>
+                                        <form class="forms-sample">
+                                            <div class="form-group">
+                                                <textarea
+                                                    class="form-control"
+                                                    id="output"
+                                                    rows="10"
+                                                    placeholder="Your output will show up here automatically"
+                                                    readonly
+                                                ></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Actions</h4>
+                                        <p class="card-description">
+                                            Any and all actions that your
+                                            tagscript may do will show up here!
+                                        </p>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Action</th>
+                                                        <th>Values</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="actionBody"></tbody>
+                                            </table>
+                                        </div>
+                                        <br />
+                                        <p class="text-danger" id="errors">
+                                            Errors: None
+                                        </p>
+                                        <p class="text-warning" id="warnings">
+                                            Warnings: None
+                                        </p>
+                                        <button
+                                            type="button"
+                                            class="btn btn-block btn-md btn-danger mr-2 icon-btn d-flex justify-content-center align-items-center"
+                                            id="clearActions"
+                                        >
+                                            <span
+                                                class="disabled-icon spinner-border spinner-border-sm"
+                                                role="status"
+                                                aria-hidden="true"
+                                            ></span>
+                                            <i
+                                                class="icon mdi mdi-close btn-icon-prepend"
+                                            ></i>
+                                            <span class="text">Clear</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Debug</h4>
+                                        <p class="card-description">
+                                            All variables used in your tag will
+                                            appear here, along with their final
+                                            value.
+                                        </p>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Variable</th>
+                                                        <th>Value</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="debugTable"></tbody>
+                                            </table>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            class="btn btn-block btn-md btn-danger mr-2 icon-btn d-flex justify-content-center align-items-center"
+                                            id="clearDebug"
+                                        >
+                                            <span
+                                                class="disabled-icon spinner-border spinner-border-sm"
+                                                role="status"
+                                                aria-hidden="true"
+                                            ></span>
+                                            <i
+                                                class="icon mdi mdi-close btn-icon-prepend"
+                                            ></i>
+                                            <span class="text">Clear</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Seeds</h4>
+                                        <p class="card-description">
+                                            Seeds are predefined variables that
+                                            are passed to the engine, set them
+                                            here.
+                                        </p>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-danger text-white"
+                                                >{args}</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="tagscriptArgs"
+                                                value="Hello world"
+                                                placeholder="Put your arguments here!"
+                                            />
+                                        </div>
+                                        <button
+                                            type="button"
+                                            class="btn btn-block btn-md btn-danger mr-2 icon-btn d-flex justify-content-center align-items-center"
+                                            id="randomizeArgs"
+                                        >
+                                            <span
+                                                class="disabled-icon spinner-border spinner-border-sm"
+                                                role="status"
+                                                aria-hidden="true"
+                                            ></span>
+                                            <i
+                                                class="icon mdi mdi-comment-question-outline btn-icon-prepend"
+                                            ></i>
+                                            <span class="text">Randomize</span>
+                                        </button>
+                                        <br />
+                                        <h4>Channel</h4>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-warning text-white"
+                                                >Name</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="channelName"
+                                                value="tagscript-chat"
+                                                placeholder="Channel name"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-warning text-white"
+                                                >ID</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="channelID"
+                                                value="123456789012345"
+                                                placeholder="Channel ID"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-warning text-white"
+                                                >NSFW</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="channelNSFW"
+                                                value="true"
+                                                placeholder="Channel NSFW"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-warning text-white"
+                                                >Mention</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="channelMention"
+                                                value="&lt;#123456789012345&gt;"
+                                                placeholder="Channel Mention"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-warning text-white"
+                                                >Topic</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="channelTopic"
+                                                value="Tagscript is pretty cool isn't it?"
+                                                placeholder="Channel Topic"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-warning text-white"
+                                                >Slowmode</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="channelSlowmode"
+                                                value="5"
+                                                placeholder="Channel Mention"
+                                            />
+                                        </div>
+                                        <button
+                                            type="button"
+                                            class="btn btn-block btn-md btn-warning mr-2 icon-btn d-flex justify-content-center align-items-center"
+                                            id="randomizeChannel"
+                                        >
+                                            <span
+                                                class="disabled-icon spinner-border spinner-border-sm"
+                                                role="status"
+                                                aria-hidden="true"
+                                            ></span>
+                                            <i
+                                                class="icon mdi mdi-comment-question-outline btn-icon-prepend"
+                                            ></i>
+                                            <span class="text">Randomize</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">User</h4>
+                                        <p class="card-description">
+                                            The user who "invoked the tag",
+                                            remember that this runs on a
+                                            different engine and so {user} is
+                                            technically not a valid block,
+                                            consider using {user(name)}.
+                                        </p>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-primary text-white"
+                                                >Name</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="userName"
+                                                value="TagScript is Cool"
+                                                placeholder="Nickname"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-primary text-white"
+                                                >Username</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="userUsername"
+                                                value="TagScript#0001"
+                                                placeholder="Username#Discriminator"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-primary text-white"
+                                                >ID</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="userID"
+                                                value="123456789012345"
+                                                placeholder="ID"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-primary text-white"
+                                                >Created At</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="userCreatedAt"
+                                                value="123456789012345"
+                                                placeholder="Created At"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-primary text-white"
+                                                >Joined At</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="userJoinedAt"
+                                                value="123456789012345"
+                                                placeholder="Created At"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-primary text-white"
+                                                >Mention</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="userMention"
+                                                value="&lt;@123456789012345&gt;"
+                                                placeholder="Mention String"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-primary text-white"
+                                                >Color</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="userColor"
+                                                value="#FFFFFF"
+                                                placeholder="Color"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-primary text-white"
+                                                >Role IDs</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="userRoleIDs"
+                                                value="123456789012345 123456789012346 123456789012347 123456789012348 123456789012349"
+                                                placeholder="A list of roleids"
+                                            />
+                                        </div>
+                                        <button
+                                            type="button"
+                                            class="btn btn-block btn-md btn-primary mr-2 icon-btn d-flex justify-content-center align-items-center"
+                                            id="randomizeUser"
+                                        >
+                                            <span
+                                                class="disabled-icon spinner-border spinner-border-sm"
+                                                role="status"
+                                                aria-hidden="true"
+                                            ></span>
+                                            <i
+                                                class="icon mdi mdi-comment-question-outline btn-icon-prepend"
+                                            ></i>
+                                            <span class="text">Randomize</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Target</h4>
+                                        <div class="form-check form-check-info">
+                                            <label class="form-check-label">
+                                                <input
+                                                    type="checkbox"
+                                                    class="form-check-input"
+                                                    checked
+                                                    id="useTarget"
+                                                />Use Target (When a user's
+                                                mentioned)</label
+                                            >
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-info text-white"
+                                                >Name</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="targetName"
+                                                value="TagScript is Cool"
+                                                placeholder="Nickname"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-info text-white"
+                                                >Username</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="targetUsername"
+                                                value="TagScript#0001"
+                                                placeholder="Username#Discriminator"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-info text-white"
+                                                >ID</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="targetID"
+                                                value="123456789012345"
+                                                placeholder="ID"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-info text-white"
+                                                >Created At</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="targetCreatedAt"
+                                                value="123456789012345"
+                                                placeholder="Created At"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-info text-white"
+                                                >Joined At</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="targetJoinedAt"
+                                                value="123456789012345"
+                                                placeholder="Created At"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-info text-white"
+                                                >Mention</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="targetMention"
+                                                value="&lt;@123456789012345&gt;"
+                                                placeholder="Mention String"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-info text-white"
+                                                >Color</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="targetColor"
+                                                value="#FFFFFF"
+                                                placeholder="Color"
+                                            />
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text bg-info text-white"
+                                                >Role IDs</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="targetRoleIDs"
+                                                value="123456789012345 123456789012346 123456789012347 123456789012348 123456789012349"
+                                                placeholder="A list of roleids"
+                                            />
+                                        </div>
+                                        <button
+                                            type="button"
+                                            class="btn btn-block btn-md btn-info mr-2 icon-btn d-flex justify-content-center align-items-center"
+                                            id="randomizeTarget"
+                                        >
+                                            <span
+                                                class="disabled-icon spinner-border spinner-border-sm"
+                                                role="status"
+                                                aria-hidden="true"
+                                            ></span>
+                                            <i
+                                                class="icon mdi mdi-comment-question-outline btn-icon-prepend"
+                                            ></i>
+                                            <span class="text">Randomize</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">
+                                            Control Panel
+                                        </h4>
+                                        <p class="card-description">
+                                            Here are some other things you may
+                                            want to edit.
+                                        </p>
+                                        <button
+                                            type="button"
+                                            class="btn btn-block btn-lg btn-danger mr-2 icon-btn d-flex justify-content-center align-items-center"
+                                            id="randomizeAll"
+                                        >
+                                            <span
+                                                class="disabled-icon spinner-border spinner-border-sm"
+                                                role="status"
+                                                aria-hidden="true"
+                                            ></span>
+                                            <i
+                                                class="icon mdi mdi-comment-question-outline btn-icon-prepend"
+                                            ></i>
+                                            <span class="text"
+                                                >Randomize All Seeds.</span
+                                            >
+                                        </button>
+                                        <div class="form-group">
+                                            <div
+                                                class="form-check form-check-primary"
+                                            >
+                                                <label class="form-check-label">
+                                                    <input
+                                                        type="checkbox"
+                                                        class="form-check-input"
+                                                        id="useSession"
+                                                        checked
+                                                    />
+                                                    Session Storage (Recommended
+                                                    if you don't know what
+                                                    you're doing)
+                                                </label>
+                                            </div>
+                                            <div
+                                                class="form-check form-check-success"
+                                            >
+                                                <label class="form-check-label">
+                                                    <input
+                                                        type="checkbox"
+                                                        class="form-check-input"
+                                                        id="useLocal"
+                                                    />
+                                                    Local Storage (Not
+                                                    recommended)
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown">
+                                            <button
+                                                class="btn btn-block btn-lg btn-warning mr-2 icon-btn d-flex justify-content-center align-items-center dropdown-toggle"
+                                                type="button"
+                                                id="dropdownMenuOutlineButton1"
+                                                data-toggle="dropdown"
+                                                aria-haspopup="true"
+                                                aria-expanded="false"
+                                            >
+                                                <span
+                                                    class="disabled-icon spinner-border spinner-border-sm"
+                                                    role="status"
+                                                    aria-hidden="true"
+                                                ></span>
+                                                <i
+                                                    class="icon mdi mdi-close btn-icon-prepend"
+                                                ></i>
+                                                <span class="text">Clear</span>
+                                            </button>
+                                            <div
+                                                class="dropdown-menu"
+                                                aria-labelledby="dropdownMenuOutlineButton1"
+                                            >
+                                                <p
+                                                    class="dropdown-item"
+                                                    id="clearSession"
+                                                >
+                                                    Session
+                                                </p>
+                                                <p
+                                                    class="dropdown-item"
+                                                    id="clearLocal"
+                                                >
+                                                    Local
+                                                </p>
+                                                <div
+                                                    class="dropdown-divider"
+                                                ></div>
+                                                <p
+                                                    class="dropdown-item"
+                                                    id="clearAll"
+                                                >
+                                                    All
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button"
-                                        class="btn btn-block btn-md btn-success mr-2 icon-btn d-flex justify-content-center align-items-center"
-                                        id="processButton">
-                                        <span class="disabled-icon spinner-border spinner-border-sm" role="status"
-                                            aria-hidden="true"></span>
-                                        <i class="icon mdi mdi-play-circle btn-icon-prepend"></i>
-                                        <span class="text">Process</span>
-                                        <span class="disabled-text">Loading...</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Output</h4>
-                                    <p class="card-description"> Your tagscript output will show here! Please note that this runs on a different engine from carl-bot, that means new blocks are added and you can see them <a href="https://btagscript.readthedocs.io/en/latest/APIReference/block.html" target="_blank">here</a>, an example of a common variable name is count.</p>
-                                    <form class="forms-sample">
-                                        <div class="form-group">
-                                            <textarea class="form-control" id="output" rows="10"
-                                                placeholder="Your output will show up here automatically"
-                                                readonly></textarea>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Actions</h4>
-                                    <p class="card-description">Any and all actions that your tagscript may do
-                                        will show up here!</p>
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th> Action </th>
-                                                    <th> Values </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="actionBody"></tbody>
-                                        </table>
-                                    </div>
-                                    <br>
-                                    <p class="text-danger" id="errors">Errors: None</p>
-                                    <p class="text-warning" id="warnings">Warnings: None</p>
-                                    <button type="button"
-                                        class="btn btn-block btn-md btn-danger mr-2 icon-btn d-flex justify-content-center align-items-center"
-                                        id="clearActions">
-                                        <span class="disabled-icon spinner-border spinner-border-sm" role="status"
-                                            aria-hidden="true"></span>
-                                        <i class="icon mdi mdi-close btn-icon-prepend"></i>
-                                        <span class="text">Clear</span>
-                                    </button>
-                                </div>
-                            </div>
+                    <!-- content-wrapper ends -->
+                    <!-- partial:partials/_footer.html -->
+                    <footer class="footer">
+                        <p>
+                            Syntax Highlighting brought to you by
+                            <a
+                                href="https://github.com/asty8926/tagscript-syntax-highlighter/blob/main/static/tse.css"
+                                target="_blank"
+                                >Asty8926</a
+                            >
+                        </p>
+                        <div
+                            class="d-sm-flex justify-content-center justify-content-sm-between"
+                        >
+                            <span
+                                class="text-muted d-block text-center text-sm-left d-sm-inline-block"
+                                >Copyright © _Leg3ndary 2022</span
+                            >
+                            <span
+                                class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"
+                            >
+                                Not affiliated with
+                                <a href="https://carl.gg" target="_blank"
+                                    >Carl-bot</a
+                                >
+                                or
+                                <a href="https://botlabs.gg" target="_blank"
+                                    >Botlabs</a
+                                ></span
+                            >
                         </div>
-                        <div class="col-md-6 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Debug</h4>
-                                    <p class="card-description">All variables used in your tag will appear here, along with their final value.</p>
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th> Variable </th>
-                                                    <th> Value </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="debugTable"></tbody>
-                                        </table>
-                                    </div>
-                                    <button type="button"
-                                        class="btn btn-block btn-md btn-danger mr-2 icon-btn d-flex justify-content-center align-items-center"
-                                        id="clearDebug">
-                                        <span class="disabled-icon spinner-border spinner-border-sm" role="status"
-                                            aria-hidden="true"></span>
-                                        <i class="icon mdi mdi-close btn-icon-prepend"></i>
-                                        <span class="text">Clear</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Seeds</h4>
-                                    <p class="card-description">Seeds are predefined variables that are passed to the engine, set them here.</p>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-danger text-white">{args}</span>
-                                        <input type="text" class="form-control" id="tagscriptArgs" value="Hello world"
-                                            placeholder="Put your arguments here!">
-                                    </div>
-                                    <button type="button"
-                                        class="btn btn-block btn-md btn-danger mr-2 icon-btn d-flex justify-content-center align-items-center"
-                                        id="randomizeArgs">
-                                        <span class="disabled-icon spinner-border spinner-border-sm" role="status"
-                                            aria-hidden="true"></span>
-                                        <i class="icon mdi mdi-comment-question-outline btn-icon-prepend"></i>
-                                        <span class="text">Randomize</span>
-                                    </button>
-                                    <br>
-                                    <h4>Channel</h4>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-warning text-white">Name</span>
-                                        <input type="text" class="form-control" id="channelName" value="tagscript-chat"
-                                            placeholder="Channel name">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-warning text-white">ID</span>
-                                        <input type="text" class="form-control" id="channelID" value="123456789012345"
-                                        placeholder="Channel ID">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-warning text-white">NSFW</span>
-                                        <input type="text" class="form-control" id="channelNSFW" value="true"
-                                            placeholder="Channel NSFW">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-warning text-white">Mention</span>
-                                        <input type="text" class="form-control" id="channelMention" value="&lt;#123456789012345&gt;"
-                                            placeholder="Channel Mention">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-warning text-white">Topic</span>
-                                        <input type="text" class="form-control" id="channelTopic" value="Tagscript is pretty cool isn't it?"
-                                            placeholder="Channel Topic">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-warning text-white">Slowmode</span>
-                                        <input type="text" class="form-control" id="channelSlowmode" value="5"
-                                            placeholder="Channel Mention">
-                                    </div>
-                                    <button type="button"
-                                        class="btn btn-block btn-md btn-warning mr-2 icon-btn d-flex justify-content-center align-items-center"
-                                        id="randomizeChannel">
-                                        <span class="disabled-icon spinner-border spinner-border-sm" role="status"
-                                            aria-hidden="true"></span>
-                                        <i class="icon mdi mdi-comment-question-outline btn-icon-prepend"></i>
-                                        <span class="text">Randomize</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">User</h4>
-                                    <p class="card-description">The user who "invoked the tag", remember that this runs on a different engine and so {user} is technically not a valid block, consider using {user(name)}.</p>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-primary text-white">Name</span>
-                                        <input type="text" class="form-control" id="userName"
-                                            value="TagScript is Cool" placeholder="Nickname">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-primary text-white">Username</span>
-                                        <input type="text" class="form-control" id="userUsername"
-                                            value="TagScript#0001" placeholder="Username#Discriminator">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-primary text-white">ID</span>
-                                        <input type="text" class="form-control" id="userID"
-                                            value="123456789012345" placeholder="ID">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-primary text-white">Created At</span>
-                                        <input type="text" class="form-control" id="userCreatedAt"
-                                            value="123456789012345" placeholder="Created At">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-primary text-white">Joined At</span>
-                                        <input type="text" class="form-control" id="userJoinedAt"
-                                            value="123456789012345" placeholder="Created At">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-primary text-white">Mention</span>
-                                        <input type="text" class="form-control" id="userMention"
-                                            value="&lt;@123456789012345&gt;" placeholder="Mention String">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-primary text-white">Color</span>
-                                        <input type="text" class="form-control" id="userColor"
-                                            value="#FFFFFF" placeholder="Color">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-primary text-white">Role IDs</span>
-                                        <input type="text" class="form-control" id="userRoleIDs"
-                                            value="123456789012345 123456789012346 123456789012347 123456789012348 123456789012349" placeholder="A list of roleids">
-                                    </div>
-                                    <button type="button"
-                                        class="btn btn-block btn-md btn-primary mr-2 icon-btn d-flex justify-content-center align-items-center"
-                                        id="randomizeUser">
-                                        <span class="disabled-icon spinner-border spinner-border-sm" role="status"
-                                            aria-hidden="true"></span>
-                                        <i class="icon mdi mdi-comment-question-outline btn-icon-prepend"></i>
-                                        <span class="text">Randomize</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Target</h4>
-                                    <div class="form-check form-check-info">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" checked id="useTarget">Use Target (When a user's mentioned)</label>
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-info text-white">Name</span>
-                                        <input type="text" class="form-control" id="targetName"
-                                            value="TagScript is Cool" placeholder="Nickname">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-info text-white">Username</span>
-                                        <input type="text" class="form-control" id="targetUsername"
-                                            value="TagScript#0001" placeholder="Username#Discriminator">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-info text-white">ID</span>
-                                        <input type="text" class="form-control" id="targetID"
-                                            value="123456789012345" placeholder="ID">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-info text-white">Created At</span>
-                                        <input type="text" class="form-control" id="targetCreatedAt"
-                                            value="123456789012345" placeholder="Created At">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-info text-white">Joined At</span>
-                                        <input type="text" class="form-control" id="targetJoinedAt"
-                                            value="123456789012345" placeholder="Created At">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-info text-white">Mention</span>
-                                        <input type="text" class="form-control" id="targetMention"
-                                            value="&lt;@123456789012345&gt;" placeholder="Mention String">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-info text-white">Color</span>
-                                        <input type="text" class="form-control" id="targetColor"
-                                            value="#FFFFFF" placeholder="Color">
-                                    </div>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-info text-white">Role IDs</span>
-                                        <input type="text" class="form-control" id="targetRoleIDs"
-                                            value="123456789012345 123456789012346 123456789012347 123456789012348 123456789012349" placeholder="A list of roleids">
-                                    </div>
-                                    <button type="button"
-                                        class="btn btn-block btn-md btn-info mr-2 icon-btn d-flex justify-content-center align-items-center"
-                                        id="randomizeTarget">
-                                        <span class="disabled-icon spinner-border spinner-border-sm" role="status"
-                                            aria-hidden="true"></span>
-                                        <i class="icon mdi mdi-comment-question-outline btn-icon-prepend"></i>
-                                        <span class="text">Randomize</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Control Panel</h4>
-                                    <p class="card-description">Here are some other things you may want to edit.</p>
-                                    <button type="button"
-                                    class="btn btn-block btn-lg btn-danger mr-2 icon-btn d-flex justify-content-center align-items-center"
-                                    id="randomizeAll">
-                                        <span class="disabled-icon spinner-border spinner-border-sm" role="status"
-                                            aria-hidden="true"></span>
-                                        <i class="icon mdi mdi-comment-question-outline btn-icon-prepend"></i>
-                                        <span class="text">Randomize All Seeds.</span>
-                                    </button>
-                                    <div class="form-group">
-                                        <div class="form-check form-check-primary">
-                                            <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" id="useSession" checked> Session Storage (Recommended if you don't know what you're doing) </label>
-                                        </div>
-                                        <div class="form-check form-check-success">
-                                            <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" id="useLocal"> Local Storage (Not recommended) </label>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown">
-                                        <button class="btn btn-block btn-lg btn-warning mr-2 icon-btn d-flex justify-content-center align-items-center dropdown-toggle" type="button" id="dropdownMenuOutlineButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="disabled-icon spinner-border spinner-border-sm" role="status"
-                                            aria-hidden="true"></span>
-                                            <i class="icon mdi mdi-close btn-icon-prepend"></i>
-                                            <span class="text">Clear</span>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuOutlineButton1">
-                                            <p class="dropdown-item" id="clearSession">Session</p>
-                                            <p class="dropdown-item" id="clearLocal">Local</p>
-                                            <div class="dropdown-divider"></div>
-                                            <p class="dropdown-item" id="clearAll">All</p>
-                                        </div>
-                                      </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </footer>
+                    <!-- partial -->
                 </div>
-                <!-- content-wrapper ends -->
-                <!-- partial:partials/_footer.html -->
-                <footer class="footer">
-                    <p>Syntax Highlighting brought to you by <a
-                            href="https://github.com/asty8926/tagscript-syntax-highlighter/blob/main/static/tse.css"
-                            target="_blank">Asty8926</a></p>
-                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
-                            _Leg3ndary 2022</span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Not affiliated with <a
-                                href="https://carl.gg" target="_blank">Carl-bot</a> or <a href="https://botlabs.gg"
-                                target="_blank">Botlabs</a></span>
-                    </div>
-                </footer>
-                <!-- partial -->
+                <!-- main-panel ends -->
             </div>
-            <!-- main-panel ends -->
+            <!-- page-body-wrapper ends -->
         </div>
-        <!-- page-body-wrapper ends -->
-    </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- inject:js -->
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/codemirror.min.js"
-        integrity="sha512-n7rucz/qOiYAkYK1CVKuqygMAnohil8Rg6kKAv0IsF2xnHUhnVyD5K9GO25OUvc+WEVZVu+NIYLblIUpkBMNvQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/addon/mode/simple.min.js"
-        integrity="sha512-CGM6DWPHs250F/m90YZ9NEiEUhd9a4+u8wAzeKC6uHzZbYyt9/e2dLC5BGGB6Y0HtEdZQdSDYjDsoTyNGdMrMA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="scripts/syntaxHighlighting.js"></script>
-    <script src="assets/js/dashboard.js"></script>
-    <script src="scripts/processTagScript.js"></script>
-    <script src="scripts/importCarlScript.js"></script>
-    <script src="scripts/manageDA.js"></script>
-    <script src="scripts/randomizeSeeds.js"></script>
-    <script src="scripts/manageStorage.js"></script>
-    <!-- End custom js for this page -->
-</body>
-
+        <!-- container-scroller -->
+        <!-- plugins:js -->
+        <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+        <!-- endinject -->
+        <!-- inject:js -->
+        <!-- endinject -->
+        <!-- Custom js for this page -->
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/codemirror.min.js"
+            integrity="sha512-n7rucz/qOiYAkYK1CVKuqygMAnohil8Rg6kKAv0IsF2xnHUhnVyD5K9GO25OUvc+WEVZVu+NIYLblIUpkBMNvQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/addon/mode/simple.min.js"
+            integrity="sha512-CGM6DWPHs250F/m90YZ9NEiEUhd9a4+u8wAzeKC6uHzZbYyt9/e2dLC5BGGB6Y0HtEdZQdSDYjDsoTyNGdMrMA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <script src="scripts/syntaxHighlighting.js"></script>
+        <script src="assets/js/dashboard.js"></script>
+        <script src="scripts/processTagScript.js"></script>
+        <script src="scripts/importCarlScript.js"></script>
+        <script src="scripts/manageDA.js"></script>
+        <script src="scripts/randomizeSeeds.js"></script>
+        <script src="scripts/manageStorage.js"></script>
+        <!-- End custom js for this page -->
+    </body>
 </html>

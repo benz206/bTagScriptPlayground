@@ -1,1 +1,96 @@
-.flag-icon{background-size:contain;background-position:50%;background-repeat:no-repeat;position:relative;display:inline-block;width:1.33333333em;line-height:1em}.flag-icon:before{content:'\00a0'}.flag-icon-ag{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/ag.svg)}.flag-icon-as{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/as.svg)}.flag-icon-at{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/at.svg)}.flag-icon-be{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/be.svg)}.flag-icon-bg{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/bg.svg)}.flag-icon-br{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/br.svg)}.flag-icon-by{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/by.svg)}.flag-icon-do{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/do.svg)}.flag-icon-gg{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/gg.svg)}.flag-icon-gt{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/gt.svg)}.flag-icon-id{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/id.svg)}.flag-icon-in{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/in.svg)}.flag-icon-io{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/io.svg)}.flag-icon-is{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/is.svg)}.flag-icon-it{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/it.svg)}.flag-icon-li{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/li.svg)}.flag-icon-lt{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/lt.svg)}.flag-icon-md{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/md.svg)}.flag-icon-mr{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/mr.svg)}.flag-icon-mt{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/mt.svg)}.flag-icon-no{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/no.svg)}.flag-icon-py{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/py.svg)}.flag-icon-re{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/re.svg)}.flag-icon-sm{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/sm.svg)}.flag-icon-so{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/so.svg)}.flag-icon-th{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/th.svg)}.flag-icon-to{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/to.svg)}.flag-icon-tr{background-image:url(https://leg3ndary.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/tr.svg)}
+.flag-icon {
+    background-size: contain;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    position: relative;
+    display: inline-block;
+    width: 1.33333333em;
+    line-height: 1em;
+}
+.flag-icon:before {
+    content: "\00a0";
+}
+.flag-icon-ag {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/ag.svg);
+}
+.flag-icon-as {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/as.svg);
+}
+.flag-icon-at {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/at.svg);
+}
+.flag-icon-be {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/be.svg);
+}
+.flag-icon-bg {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/bg.svg);
+}
+.flag-icon-br {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/br.svg);
+}
+.flag-icon-by {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/by.svg);
+}
+.flag-icon-do {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/do.svg);
+}
+.flag-icon-gg {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/gg.svg);
+}
+.flag-icon-gt {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/gt.svg);
+}
+.flag-icon-id {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/id.svg);
+}
+.flag-icon-in {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/in.svg);
+}
+.flag-icon-io {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/io.svg);
+}
+.flag-icon-is {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/is.svg);
+}
+.flag-icon-it {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/it.svg);
+}
+.flag-icon-li {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/li.svg);
+}
+.flag-icon-lt {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/lt.svg);
+}
+.flag-icon-md {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/md.svg);
+}
+.flag-icon-mr {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/mr.svg);
+}
+.flag-icon-mt {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/mt.svg);
+}
+.flag-icon-no {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/no.svg);
+}
+.flag-icon-py {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/py.svg);
+}
+.flag-icon-re {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/re.svg);
+}
+.flag-icon-sm {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/sm.svg);
+}
+.flag-icon-so {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/so.svg);
+}
+.flag-icon-th {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/th.svg);
+}
+.flag-icon-to {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/to.svg);
+}
+.flag-icon-tr {
+    background-image: url(https://benz206.github.io/bTagScriptPlayground/assets/vendors/flag-icon-css/flags/4x3/tr.svg);
+}

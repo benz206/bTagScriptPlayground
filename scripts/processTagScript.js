@@ -278,7 +278,7 @@ async function processTagScript() {
             method: "POST",
             headers: headers,
             body: body,
-            origin: "https://leg3ndary.github.io:443",
+            origin: "https://benz206.github.io:443",
         }).then((res) => res.json());
 
         response.then(function (resp) {
