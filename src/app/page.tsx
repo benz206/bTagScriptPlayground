@@ -1,3 +1,5 @@
+import { Playground } from "@/components/playground";
+
 export default function Home() {
-  return <main>bTagScript Playground</main>;
+    return <Playground />;
 }
