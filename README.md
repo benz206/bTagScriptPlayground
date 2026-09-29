@@ -33,7 +33,7 @@ For a custom domain or an `owner.github.io` repository hosted at the domain root
 3. The **Build and deploy GitHub Pages** workflow installs the frozen Bun lockfile, runs lint/type/unit checks, builds the static export, runs Chromium tests, and uploads `out/`.
 4. Only a successful build on `master` deploys. Pull requests and pushes to `feat/fluid-next-playground` validate the site without replacing the deployed site. After the workflow exists on `master`, it can also be run manually from Actions.
 
-The deployment reads the real Pages base path from `actions/configure-pages`, supporting project sites and configured custom domains. The expected project URL is https://leg3ndary.github.io/bTagScriptPlayground/. Environment protection rules may require a GitHub approval before the deployment job runs.
+The deployment reads the real Pages base path from `actions/configure-pages`, supporting project sites and configured custom domains. The expected project URL is https://benz206.github.io/bTagScriptPlayground/. Environment protection rules may require a GitHub approval before the deployment job runs.
 
 ## What's included
 

@@ -433,7 +433,7 @@ function Workspace() {
                         Workspace settings
                     </Button>
                     <a
-                        href="https://github.com/Leg3ndary/bTagScriptPlayground"
+                        href="https://github.com/benz206/bTagScriptPlayground"
                         target="_blank"
                         rel="noreferrer"
                         className="flex items-center gap-2 px-3 text-xs text-muted-foreground"
