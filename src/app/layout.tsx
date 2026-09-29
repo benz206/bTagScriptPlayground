@@ -11,7 +11,14 @@ export default function RootLayout({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
+            <head>
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `try { document.documentElement.classList.toggle("dark", localStorage.getItem("btag-theme") === "dark"); } catch {}`,
+                    }}
+                />
+            </head>
             <body>{children}</body>
         </html>
     );

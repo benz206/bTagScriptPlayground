@@ -12,14 +12,15 @@ import {
     FileCode2,
     FlaskConical,
     GitFork,
-    Grid2X2,
     Leaf,
+    Moon,
     MoreHorizontal,
     Play,
     Plus,
     Search,
     Settings2,
     Sparkles,
+    Sun,
     Upload,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -106,10 +107,7 @@ const ScriptEditor = dynamic(
         ),
     },
 );
-const ComponentGallery = dynamic(() =>
-    import("./component-gallery").then((m) => m.ComponentGallery),
-);
-type View = "playground" | "examples" | "guide" | "components";
+type View = "playground" | "examples" | "guide";
 type StorageMode = "local" | "session" | "off";
 
 export function Playground() {
@@ -155,12 +153,27 @@ function Workspace() {
     const [ready, setReady] = useState(false);
     const [notice, setNotice] = useState("");
     const [fontSize, setFontSize] = useState(14);
-    const [theme, setTheme] = useState("light");
+    const [theme, updateTheme] = useState("light");
     const fileInput = useRef<HTMLInputElement>(null);
+
+    function setTheme(value: string) {
+        updateTheme(value);
+        document.documentElement.classList.toggle("dark", value === "dark");
+        try {
+            localStorage.setItem("btag-theme", value);
+        } catch {
+            // Theme switching still works when browser storage is unavailable.
+        }
+    }
 
     useEffect(() => {
         // Browser storage is only available after hydration; restore the legacy script once.
         /* eslint-disable react-hooks/set-state-in-effect */
+        updateTheme(
+            document.documentElement.classList.contains("dark")
+                ? "dark"
+                : "light",
+        );
         try {
             const savedMode = localStorage.getItem("btag-storage");
             const mode: StorageMode =
@@ -205,9 +218,6 @@ function Workspace() {
             setNotice("Could not save your script. Export it to keep a copy.");
         }
     }, [script, storage, ready]);
-    useEffect(() => {
-        document.documentElement.classList.toggle("dark", theme === "dark");
-    }, [theme]);
 
     const run = useCallback(async () => {
         if (running.current) return;
@@ -302,11 +312,6 @@ function Workspace() {
         { value: "playground", label: "Open playground", icon: Braces },
         { value: "examples", label: "Explore examples", icon: FileCode2 },
         { value: "guide", label: "Read the guide", icon: BookOpen },
-        {
-            value: "components",
-            label: "Browse Fluid components",
-            icon: Grid2X2,
-        },
         { value: "settings", label: "Workspace settings", icon: Settings2 },
         { value: "import", label: "Import a Carl tag", icon: Upload },
     ];
@@ -369,11 +374,6 @@ function Workspace() {
                                         id: "guide",
                                         label: "Quick guide",
                                         icon: BookOpen,
-                                    },
-                                    {
-                                        id: "components",
-                                        label: "Components",
-                                        icon: Grid2X2,
                                     },
                                 ] as const
                             ).map((item) => (
@@ -464,6 +464,35 @@ function Workspace() {
                         >
                             A space for your tags
                         </Badge>
+                        <Tooltip
+                            content={
+                                theme === "dark"
+                                    ? "Switch to light mode"
+                                    : "Switch to dark mode"
+                            }
+                        >
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                aria-label={
+                                    theme === "dark"
+                                        ? "Switch to light mode"
+                                        : "Switch to dark mode"
+                                }
+                                disabled={!ready}
+                                onClick={() =>
+                                    setTheme(
+                                        theme === "dark" ? "light" : "dark",
+                                    )
+                                }
+                            >
+                                {theme === "dark" ? (
+                                    <Sun size={16} />
+                                ) : (
+                                    <Moon size={16} />
+                                )}
+                            </Button>
+                        </Tooltip>
                         <Tooltip content="Workspace settings">
                             <Button
                                 variant="ghost"
@@ -495,16 +524,12 @@ function Workspace() {
                                     ? "Good tags start here."
                                     : view === "examples"
                                       ? "A place to begin."
-                                      : view === "guide"
-                                        ? "Meet your playground."
-                                        : "Fluid, by design."}
+                                      : "Meet your playground."}
                             </h1>
                             <p className="mt-3 text-sm text-muted-foreground">
                                 {view === "playground"
                                     ? "Give your ideas a little room to run."
-                                    : view === "components"
-                                      ? "Every component in the current Fluid Functionalism registry, ready to try."
-                                      : "A little inspiration for whatever you’re building next."}
+                                    : "A little inspiration for whatever you’re building next."}
                             </p>
                         </div>
                         {view === "playground" && (
@@ -813,7 +838,6 @@ function Workspace() {
                             </Button>
                         </div>
                     )}
-                    {view === "components" && <ComponentGallery />}
                 </main>
             </div>
             <input

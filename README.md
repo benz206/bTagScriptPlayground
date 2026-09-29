@@ -41,8 +41,8 @@ The deployment reads the real Pages base path from `actions/configure-pages`, su
 - Editable arguments, channel, user, and optional target seeds, with randomization and role color selection.
 - Response preview, action inspection, structured debug variables, execution duration, and copy controls.
 - Browser or session autosave, migration of the old `tagscript` storage key, local file import/export, and Carl tag imports.
-- Example tags, a quick guide, light/dark themes, editor font-size settings, and a command palette.
-- All **30 current Fluid component types**, with working examples in the Components gallery. See [the source inventory](docs/fluid-components.md).
+- Example tags, a quick guide, a header light/dark toggle with a saved preference, editor font-size settings, and a command palette.
+- Fluid Functionalism controls throughout the playground. See [component source notes](docs/fluid-components.md).
 
 ## External services
 
@@ -61,7 +61,7 @@ bunx playwright install chromium
 NEXT_PUBLIC_BASE_PATH=/bTagScriptPlayground bun run test:e2e
 ```
 
-Unit tests cover encoding, seed payloads, target selection, result validation, Carl URL parsing, and randomized seed consistency. Browser tests run against the static export and mock external APIs to verify successful runs, network failures, duplicate request prevention, saved scripts, imports/exports, the full gallery, and mobile layout without depending on external service uptime.
+Unit tests cover encoding, seed payloads, target selection, result validation, Carl URL parsing, and randomized seed consistency. Browser tests run against the static export and mock external APIs to verify successful runs, network failures, duplicate request prevention, saved scripts, imports/exports, theme persistence, and mobile layout without depending on external service uptime.
 
 The current stack is Next.js 16.3.7, React 19.3, Tailwind 4.3, and TypeScript 7.0.2. TypeScript 7's native compiler is installed as `@typescript/native`; the `typescript` alias provides Microsoft's TypeScript 6 compatibility API for Next.js/ESLint tooling. ESLint 10 uses its official compatibility adapter for the Next.js React plugin. Exact resolved dependencies are recorded in `bun.lock`.
 

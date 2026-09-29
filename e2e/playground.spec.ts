@@ -98,29 +98,6 @@ test("validates Carl imports, loads a valid import, and exports files", async ({
     expect((await download).suggestedFilename()).toBe("my-tag.tagscript");
 });
 
-test("renders all 30 Fluid components without browser errors", async ({
-    page,
-}) => {
-    const errors: string[] = [];
-    page.on("pageerror", (error) => errors.push(error.message));
-    await page.goto("./");
-    await page.getByRole("button", { name: "Components", exact: true }).click();
-    await expect(page.locator("[data-component]")).toHaveCount(30);
-    await page.getByRole("button", { name: "Try me", exact: true }).click();
-    await expect(
-        page.getByRole("button", { name: "Try me · 1" }),
-    ).toBeVisible();
-    await page.getByRole("button", { name: "Open a little space" }).click();
-    await expect(page.getByRole("dialog")).toBeVisible();
-    await page.keyboard.press("Escape");
-    await page
-        .getByRole("textbox", { name: "Gallery message" })
-        .fill("A tiny idea");
-    await page.getByRole("textbox", { name: "Gallery message" }).press("Enter");
-    await expect(page.getByText("A tiny idea", { exact: true })).toBeVisible();
-    expect(errors).toEqual([]);
-});
-
 test("keeps the mobile workspace within the viewport", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("./");
@@ -132,14 +109,45 @@ test("keeps the mobile workspace within the viewport", async ({ page }) => {
     ).toBeLessThanOrEqual(390);
     await page.getByRole("button", { name: /toggle sidebar/i }).click();
     await expect(
-        page.getByRole("button", { name: "Components", exact: true }),
+        page.getByRole("button", { name: "Quick guide", exact: true }),
     ).toBeVisible();
-    await page.getByRole("button", { name: "Components", exact: true }).click();
+    await page
+        .getByRole("button", { name: "Quick guide", exact: true })
+        .click();
     await expect(
-        page.getByRole("heading", { name: "Fluid, by design." }),
+        page.getByRole("heading", { name: "Meet your playground." }),
     ).toBeVisible();
     await expect(page.getByRole("dialog")).not.toBeVisible();
     expect(
         await page.evaluate(() => document.documentElement.scrollWidth),
     ).toBeLessThanOrEqual(390);
+});
+
+test("persists dark mode and keeps the header and settings in sync", async ({
+    page,
+}) => {
+    await page.goto("./");
+    await page.getByRole("button", { name: "Switch to dark mode" }).click();
+    await expect(page.locator("html")).toHaveClass("dark");
+    await expect(page.locator("html")).toHaveCSS("color-scheme", "dark");
+    await page.reload();
+    await expect(
+        page.getByRole("button", { name: "Switch to light mode" }),
+    ).toBeEnabled();
+    await expect(page.locator("html")).toHaveClass("dark");
+    await page
+        .getByRole("button", { name: "Workspace settings", exact: true })
+        .first()
+        .click();
+    await page.getByRole("combobox", { name: "Appearance" }).click();
+    await page.getByRole("option", { name: "Light", exact: true }).click();
+    await expect(page.locator("html")).not.toHaveClass("dark");
+    await page.reload();
+    await expect(
+        page.getByRole("button", { name: "Switch to dark mode" }),
+    ).toBeEnabled();
+    await expect(page.locator("html")).toHaveCSS("color-scheme", "light");
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.getByRole("button", { name: "Switch to dark mode" }).click();
+    await expect(page.locator("html")).toHaveClass("dark");
 });
