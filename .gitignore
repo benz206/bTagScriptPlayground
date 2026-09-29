@@ -1,6 +1,5 @@
 # Add any directories, files, or patterns you don't want to be tracked by version control
 node_modules/
-package-lock.json
 .DS_Store
 .vscode
 *documentation/
@@ -19,3 +18,10 @@ oldindex.html
 .output
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Next.js and test output
+.next/
+out/
+*.tsbuildinfo
+playwright-report/
+test-results/
