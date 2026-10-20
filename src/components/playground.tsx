@@ -199,15 +199,13 @@ function Workspace() {
         setElapsed(null);
         const started = performance.now();
         try {
-            setResult(await runTag(script, seeds, useTarget));
+            setResult(runTag(script, seeds, useTarget));
             setElapsed(Math.round(performance.now() - started));
         } catch (err) {
             setError(
-                err instanceof TypeError
-                    ? "The TagScript engine could not be reached. Check your connection and try again. Your script is still here."
-                    : err instanceof Error
-                      ? err.message
-                      : "The tag could not be processed.",
+                err instanceof Error
+                    ? err.message
+                    : "The tag could not be processed.",
             );
         } finally {
             running.current = false;
@@ -578,10 +576,10 @@ function Workspace() {
                             </h1>
                             <p className="mt-3 leading-7 text-muted-foreground">
                                 Write a tag, give it some context, and run it.
-                                The playground sends your script and seeds to
-                                the bTagScript engine. It shows the response,
-                                actions, and variables without executing
-                                Discord commands.
+                                The playground runs your script and seeds with
+                                the bTagScript engine in your browser. It shows
+                                the response, actions, and variables without
+                                executing Discord commands.
                             </p>
                             <Accordion
                                 type="single"
@@ -598,7 +596,7 @@ function Workspace() {
                                     [
                                         "save",
                                         "Where does my script go?",
-                                        "Scripts autosave in this browser by default. Workspace settings lets you choose session storage or turn autosave off. Export a script from the editor menu for a portable copy. Running a tag sends its text and seeds to the external TagScript engine.",
+                                        "Scripts autosave in this browser by default. Workspace settings lets you choose session storage or turn autosave off. Export a script from the editor menu for a portable copy. Tags run in your browser, so running one never sends your script or seeds anywhere.",
                                     ],
                                     [
                                         "import",
@@ -608,7 +606,7 @@ function Workspace() {
                                     [
                                         "run",
                                         "What happens when I run a tag?",
-                                        "The response appears in Output. Actions shows what the bot would do, and Debug lists the variables returned by the engine. Run with the button or Command/Control + Enter. Network and engine errors appear in the Output pane.",
+                                        "The response appears in Output. Actions shows what the bot would do, and Debug lists the variables returned by the engine. Run with the button or Command/Control + Enter. Errors appear in the Output pane.",
                                     ],
                                 ].map(([id, title, text], index) => (
                                     <AccordionItem

@@ -1,4 +1,14 @@
-export const PROCESS_URL = "https://leg3ndary.pythonanywhere.com/v2/process/";
+import {
+    ChannelAdapter,
+    Interpreter,
+    MemberAdapter,
+    StringAdapter,
+    Verb,
+    WorkloadExceededError,
+    defaultBlocks,
+} from "btagscript";
+
+export const CHAR_LIMIT = 20000;
 export const CARL_URL =
     "https://mighty-sea-55702.herokuapp.com/https://carl.gg/api/v1/tags/";
 
@@ -29,7 +39,6 @@ export interface TagResult {
     body: string;
     actions: Record<string, unknown>;
     extras: { debug: Record<string, unknown> };
-    uses?: number[];
 }
 
 const person: PersonSeed = {
@@ -82,80 +91,83 @@ export const examples = [
     },
 ];
 
-export function encodeTagScript(value: string) {
-    return value
-        .replace(/\\/g, "Ꜳ")
-        .replace(/\//g, "₩")
-        .replace(/</g, "ꜳ")
-        .replace(/>/g, "ꜵ")
-        .replace(/\./g, "Ꜷ");
+function discordTime(seconds: string) {
+    const date = new Date((Number(seconds) || 0) * 1000);
+    date.toString = () =>
+        date
+            .toISOString()
+            .replace("T", " ")
+            .replace(/\.\d+Z$/, "+00:00");
+    return date;
 }
-export function decodeTagScript(value: string) {
-    return value
-        .replace(/Ꜳ/g, "\\")
-        .replace(/ꜳ/g, "<")
-        .replace(/₩/g, "/")
-        .replace(/ꜵ/g, ">")
-        .replace(/Ꜷ/g, ".");
+function member(seed: PersonSeed) {
+    return new MemberAdapter({
+        id: seed.id,
+        name: seed.username,
+        display_name: seed.name,
+        created_at: discordTime(seed.createdAt),
+        joined_at: discordTime(seed.joinedAt),
+        mention: seed.mention,
+        color: `#${seed.color.toLowerCase()}`,
+        discriminator: "0",
+        display_avatar: { url: "" },
+        bot: false,
+        _roles: seed.roleIDs.split(/\s+/).filter(Boolean),
+        toString: () => seed.username,
+    });
 }
-export function createRequest(
+export function createSeeds(seeds: Seeds, useTarget: boolean) {
+    const { channel } = seeds;
+    return {
+        args: new StringAdapter(seeds.args),
+        user: member(seeds.user),
+        target: member(useTarget ? seeds.target : seeds.user),
+        channel: new ChannelAdapter({
+            id: channel.id,
+            name: channel.name,
+            nsfw: channel.nsfw === "true",
+            mention: channel.mention,
+            topic: channel.topic || null,
+            slowmode_delay: Number(channel.slowmode) || 0,
+            toString: () => channel.name,
+        }),
+    };
+}
+const engine = new Interpreter(defaultBlocks());
+const debugVerb = new Verb("{debug}");
+export function runTag(
     script: string,
     seeds: Seeds,
     useTarget: boolean,
-) {
-    return new URLSearchParams({
-        tagscript: script,
-        seeds: encodeTagScript(
-            JSON.stringify({
-                ...seeds,
-                target: useTarget ? seeds.target : seeds.user,
-            }),
-        ),
-    });
+): TagResult {
+    try {
+        const response = engine.process(script, createSeeds(seeds, useTarget), {
+            charlimit: CHAR_LIMIT,
+        });
+        return {
+            body: response.body ?? "",
+            actions: response.actions,
+            extras: {
+                debug: Object.fromEntries(
+                    Object.entries(response.variables).map(
+                        ([name, adapter]) => [
+                            name,
+                            adapter.getValue(debugVerb),
+                        ],
+                    ),
+                ),
+            },
+        };
+    } catch (error) {
+        if (error instanceof WorkloadExceededError)
+            throw new Error(
+                `This tag produced more than ${CHAR_LIMIT.toLocaleString()} characters, so it was stopped.`,
+            );
+        throw error;
+    }
 }
 function isRecord(value: unknown): value is Record<string, unknown> {
     return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-export function parseResult(data: unknown): TagResult {
-    if (
-        !isRecord(data) ||
-        typeof data.body !== "string" ||
-        !isRecord(data.actions)
-    ) {
-        throw new Error(
-            "The engine returned an unexpected response. Please try again.",
-        );
-    }
-    const debug =
-        isRecord(data.extras) && isRecord(data.extras.debug)
-            ? data.extras.debug
-            : {};
-    return {
-        body: decodeTagScript(data.body),
-        actions: data.actions,
-        extras: { debug },
-        uses: Array.isArray(data.uses)
-            ? data.uses.filter(
-                  (value): value is number => typeof value === "number",
-              )
-            : undefined,
-    };
-}
-export async function runTag(
-    script: string,
-    seeds: Seeds,
-    useTarget: boolean,
-): Promise<TagResult> {
-    const response = await fetch(PROCESS_URL, {
-        method: "POST",
-        body: createRequest(script, seeds, useTarget),
-        signal: AbortSignal.timeout(30000),
-    });
-    if (!response.ok)
-        throw new Error(
-            `The TagScript engine returned ${response.status}. Please try again later.`,
-        );
-    return parseResult(await response.json());
 }
 export function parseCarlId(value: string) {
     const trimmed = value.trim();

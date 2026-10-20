@@ -96,7 +96,7 @@ export function ResultsPanel({
                                 size={14}
                                 className="animate-spin text-ctp-mauve"
                             />
-                            Sending your script to the TagScript engine…
+                            Running your tag…
                         </p>
                     )}
                     {error && (
