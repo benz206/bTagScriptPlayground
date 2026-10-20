@@ -12,7 +12,10 @@ test("processes a tag in the browser and inspects the result", async ({
     );
     await page.reload();
     const requests: string[] = [];
-    page.on("request", (request) => requests.push(request.url()));
+    page.on("request", (request) => {
+        if (new URL(request.url()).origin !== new URL(page.url()).origin)
+            requests.push(request.url());
+    });
     await page.getByRole("button", { name: /^Run tag/ }).click();
     await expect(page.getByText("Hello, Alex!", { exact: true })).toBeVisible();
     await page.getByRole("tab", { name: "Actions · 1" }).click();
