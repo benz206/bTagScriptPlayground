@@ -1,51 +1,42 @@
 import { expect, test } from "@playwright/test";
 
-test("processes a tag with the original API contract and inspects the result", async ({
+test("processes a tag in the browser and inspects the result", async ({
     page,
 }) => {
-    let requests = 0;
-    await page.route("**/v2/process/", async (route) => {
-        requests++;
-        const body = new URLSearchParams(route.request().postData()!);
-        expect(body.get("tagscript")).toContain("greeting");
-        expect(body.get("seeds")).toContain("Alex");
-        await route.fulfill({
-            json: {
-                body: "Hello, Alex!",
-                actions: { commands: ["ping"] },
-                extras: { debug: { greeting: "Hello, Alex!" } },
-            },
-        });
-    });
     await page.goto("./");
+    await page.evaluate(() =>
+        localStorage.setItem(
+            "tagscript",
+            "{=(greeting):Hello, {user(nick)}!}{c:ping}{greeting}",
+        ),
+    );
+    await page.reload();
+    const requests: string[] = [];
+    page.on("request", (request) => requests.push(request.url()));
     await page.getByRole("button", { name: /^Run tag/ }).click();
     await expect(page.getByText("Hello, Alex!", { exact: true })).toBeVisible();
     await page.getByRole("tab", { name: "Actions · 1" }).click();
     await expect(page.getByRole("cell", { name: "commands" })).toBeVisible();
     await page.getByRole("tab", { name: "Debug · 1" }).click();
     await expect(page.getByRole("cell", { name: "greeting" })).toBeVisible();
-    expect(requests).toBe(1);
+    expect(requests).toEqual([]);
 });
 
-test("shows network failures and prevents duplicate in-flight requests", async ({
-    page,
-}) => {
-    let requests = 0;
-    await page.route("**/v2/process/", async (route) => {
-        requests++;
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        await route.abort();
-    });
+test("shows engine errors and keeps the script", async ({ page }) => {
+    const script = "{=(r):lol}" + "{=(r):{r}{r}}".repeat(30) + "{r}";
     await page.goto("./");
+    await page.evaluate(
+        (value) => localStorage.setItem("tagscript", value),
+        script,
+    );
+    await page.reload();
     const run = page.getByRole("button", { name: /^Run tag/ });
     await run.click();
-    await expect(run).toBeDisabled();
-    await page.keyboard.press("Control+Enter");
     await expect(
-        page.getByRole("alert").filter({ hasText: "could not be reached" }),
+        page.getByRole("alert").filter({ hasText: "so it was stopped" }),
     ).toBeVisible();
     await expect(run).toBeEnabled();
-    expect(requests).toBe(1);
+    await expect(page.locator(".cm-content")).toContainText("{=(r):lol}");
 });
 
 test("restores scripts and switches to session storage", async ({ page }) => {

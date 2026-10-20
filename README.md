@@ -46,9 +46,9 @@ The deployment reads the real Pages base path from `actions/configure-pages`, su
 
 ## External services
 
-Processing uses the existing `https://leg3ndary.pythonanywhere.com/v2/process/` endpoint and its form/seed encoding. Clicking **Run tag** sends the script and seed context to that service. The playground displays Discord actions; it does not execute them.
+Tags run in the browser with the [`btagscript`](https://www.npmjs.com/package/btagscript) engine, so **Run tag** makes no network requests. Output is capped at 20,000 characters so runaway tags stop instead of freezing the page. The playground displays Discord actions; it does not execute them.
 
-Carl imports use the project's existing Heroku proxy for `carl.gg`. Both services must be online and permit requests from the deployed origin. A static GitHub Pages site cannot provide a server-side CORS proxy. Failures display an error, preserve the editor text, and re-enable the controls. If Carl import is unavailable, paste the script or import a `.txt`/`.tagscript` file.
+Carl imports use the project's existing Heroku proxy for `carl.gg`. The proxy must be online and permit requests from the deployed origin. A static GitHub Pages site cannot provide a server-side CORS proxy. Failures display an error, preserve the editor text, and re-enable the controls. If Carl import is unavailable, paste the script or import a `.txt`/`.tagscript` file.
 
 ## Verification
 

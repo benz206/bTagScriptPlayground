@@ -1,47 +1,63 @@
-import { describe, expect, test } from "bun:test";
 import {
-    createRequest,
-    decodeTagScript,
-    encodeTagScript,
+    CHAR_LIMIT,
+    examples,
     initialSeeds,
     parseCarlId,
-    parseResult,
     randomPerson,
+    runTag,
 } from "../src/lib/tagscript";
 
-describe("the existing TagScript API contract", () => {
-    test("encodes reserved characters and round-trips seed data", () => {
-        const value = "<@123> / path\\tag.txt";
-        expect(encodeTagScript(value)).toBe("ꜳ@123ꜵ ₩ pathꜲtagꜶtxt");
-        expect(decodeTagScript(encodeTagScript(value))).toBe(value);
-    });
-    test("sends form data and mirrors user into target by default", () => {
-        const body = createRequest("Hello {user}", initialSeeds, false);
-        expect(body.get("tagscript")).toBe("Hello {user}");
-        const seeds = JSON.parse(decodeTagScript(body.get("seeds")!));
-        expect(seeds.target).toEqual(initialSeeds.user);
-        expect(seeds.channel).toEqual(initialSeeds.channel);
-    });
-    test("uses a separate target when enabled", () => {
-        const body = createRequest("{target}", initialSeeds, true);
-        expect(JSON.parse(decodeTagScript(body.get("seeds")!)).target).toEqual(
-            initialSeeds.target,
+describe("the in-browser engine", () => {
+    test("runs the bundled examples with the default seeds", () => {
+        const [welcome] = examples;
+        expect(runTag(welcome!.code, initialSeeds, false).body).toBe(
+            "Hello, alex!\n\nWelcome to general.\nYou said: Hello world",
         );
     });
-    test("decodes output and retains structured action/debug values", () => {
-        const result = parseResult({
-            body: "Hello ꜳ@123ꜵꜶ",
-            actions: { embed: { title: "Hello" } },
-            extras: { debug: { count: 3 } },
-        });
-        expect(result.body).toBe("Hello <@123>.");
-        expect(result.actions.embed).toEqual({ title: "Hello" });
-        expect(result.extras.debug.count).toBe(3);
+    test("mirrors user into target unless a separate target is enabled", () => {
+        expect(runTag("{target(nick)}", initialSeeds, false).body).toBe("Alex");
+        expect(runTag("{target(nick)}", initialSeeds, true).body).toBe("Sam");
     });
-    test("rejects malformed engine responses instead of showing fake output", () => {
-        expect(() => parseResult({ error: "Unavailable" })).toThrow();
-        expect(() => parseResult(null)).toThrow();
-        expect(parseResult({ body: "", actions: {} }).extras.debug).toEqual({});
+    test("exposes Discord-shaped member and channel fields", () => {
+        const result = runTag(
+            "{user(id)} {user(mention)} {user(color)} {user(roleids)} {user(timestamp)} {user(created_at)}",
+            initialSeeds,
+            false,
+        );
+        expect(result.body).toBe(
+            "123456789012345678 <@123456789012345678> #7c9265 987654321012345678 1609459200 2021-01-01 00:00:00+00:00",
+        );
+        expect(
+            runTag(
+                "{channel} {channel(topic)} {channel(nsfw)} {channel(slowmode)}",
+                initialSeeds,
+                false,
+            ).body,
+        ).toBe("general A place to try things out. false 0");
+    });
+    test("returns actions and every variable for the debug view", () => {
+        const result = runTag(
+            "{=(x):5}{c:ping}{embed(title):Hi}",
+            initialSeeds,
+            false,
+        );
+        expect(result.body).toBe("");
+        expect(result.actions.commands).toEqual(["ping"]);
+        expect(result.actions.embed).toEqual({ title: "Hi" });
+        expect(result.extras.debug.x).toBe("5");
+        expect(result.extras.debug.args).toBe("Hello world");
+    });
+    test("keeps debug variables when a tag stops early", () => {
+        expect(
+            runTag("{=(x):5}{stop:done} after", initialSeeds, false).extras
+                .debug.x,
+        ).toBe("5");
+    });
+    test("stops runaway tags with a readable error", () => {
+        const script = "{=(r):lol}" + "{=(r):{r}{r}}".repeat(30) + "{r}";
+        expect(() => runTag(script, initialSeeds, false)).toThrow(
+            `more than ${CHAR_LIMIT.toLocaleString()} characters`,
+        );
     });
 });
 
