@@ -1,10 +1,29 @@
-import type { Metadata } from "next";
-import "@fontsource-variable/inter";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+
+const geist = Geist({
+    subsets: ["latin"],
+    display: "swap",
+    variable: "--font-geist",
+});
+
+const geistMono = Geist_Mono({
+    subsets: ["latin"],
+    display: "swap",
+    variable: "--font-geist-mono",
+});
 
 export const metadata: Metadata = {
     title: "bTagScript — Playground",
     description: "A workspace for writing, testing, and exploring TagScript.",
+};
+
+export const viewport: Viewport = {
+    themeColor: [
+        { media: "(prefers-color-scheme: light)", color: "#eff1f5" },
+        { media: "(prefers-color-scheme: dark)", color: "#181825" },
+    ],
 };
 
 export default function RootLayout({
@@ -19,7 +38,9 @@ export default function RootLayout({
                     }}
                 />
             </head>
-            <body>{children}</body>
+            <body className={`${geist.variable} ${geistMono.variable}`}>
+                {children}
+            </body>
         </html>
     );
 }

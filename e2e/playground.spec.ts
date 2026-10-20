@@ -102,20 +102,14 @@ test("keeps the mobile workspace within the viewport", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("./");
     await expect(
-        page.getByRole("heading", { name: "Good tags start here." }),
+        page.getByRole("heading", { name: "my-tag.tagscript" }),
     ).toBeVisible();
     expect(
         await page.evaluate(() => document.documentElement.scrollWidth),
     ).toBeLessThanOrEqual(390);
-    await page.getByRole("button", { name: /toggle sidebar/i }).click();
+    await page.getByRole("button", { name: "Guide", exact: true }).click();
     await expect(
-        page.getByRole("button", { name: "Quick guide", exact: true }),
-    ).toBeVisible();
-    await page
-        .getByRole("button", { name: "Quick guide", exact: true })
-        .click();
-    await expect(
-        page.getByRole("heading", { name: "Meet your playground." }),
+        page.getByRole("heading", { name: "Guide", level: 1 }),
     ).toBeVisible();
     await expect(page.getByRole("dialog")).not.toBeVisible();
     expect(

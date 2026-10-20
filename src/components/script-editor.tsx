@@ -30,11 +30,11 @@ const extensions = [
     EditorView.lineWrapping,
     syntaxHighlighting(
         HighlightStyle.define([
-            { tag: tags.keyword, color: "#78935b" },
-            { tag: tags.bracket, color: "#bc785d" },
-            { tag: tags.operator, color: "#b0926a" },
-            { tag: tags.number, color: "#9980b3" },
-            { tag: tags.comment, color: "#858d7d", fontStyle: "italic" },
+            { tag: tags.keyword, color: "var(--ctp-mauve)" },
+            { tag: tags.bracket, color: "var(--ctp-red)" },
+            { tag: tags.operator, color: "var(--ctp-blue)" },
+            { tag: tags.number, color: "var(--ctp-peach)" },
+            { tag: tags.comment, color: "var(--faint)", fontStyle: "italic" },
         ]),
     ),
 ];
@@ -49,13 +49,13 @@ export function ScriptEditor({
     fontSize: number;
 }) {
     return (
-        <div className="code-editor" style={{ fontSize }}>
+        <div className="code-editor h-full" style={{ fontSize }}>
             <CodeMirror
                 value={value}
                 onChange={onChange}
                 extensions={extensions}
                 aria-label="TagScript editor"
-                minHeight="340px"
+                height="100%"
                 basicSetup={{
                     foldGutter: false,
                     highlightActiveLine: true,
