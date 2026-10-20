@@ -43,17 +43,12 @@ export function SeedPanel({
     const update = (key: string, value: string) =>
         setSeeds({ ...seeds, [group]: { ...seeds[group], [key]: value } });
     return (
-        <section className="workspace-panel">
-            <div className="panel-heading">
-                <div>
-                    <h2 className="font-medium">Set the scene</h2>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                        The people and place behind your tag.
-                    </p>
-                </div>
+        <section className="flex flex-col lg:min-h-0 lg:overflow-y-auto">
+            <div className="pane-head sticky top-0 z-10 bg-background">
+                <h2 className="text-[13px] font-medium">Seeds</h2>
                 <Button
                     variant="ghost"
-                    size="icon"
+                    size="icon-compact"
                     aria-label="Randomize all seeds"
                     onClick={() =>
                         setSeeds({
@@ -64,7 +59,7 @@ export function SeedPanel({
                         })
                     }
                 >
-                    <Shuffle size={16} />
+                    <Shuffle size={15} />
                 </Button>
             </div>
             <div className="p-4">
@@ -108,7 +103,7 @@ export function SeedPanel({
                             />
                         )}
                         {name === "target" && !useTarget ? (
-                            <p className="py-8 text-center text-sm text-muted-foreground">
+                            <p className="py-8 text-center text-[13px] text-muted-foreground">
                                 Your target follows the user. Enable a separate
                                 target to customize it.
                             </p>

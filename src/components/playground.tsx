@@ -10,36 +10,19 @@ import {
     Braces,
     Check,
     FileCode2,
-    FlaskConical,
     GitFork,
-    Leaf,
+    LoaderCircle,
     Moon,
     MoreHorizontal,
     Play,
     Plus,
     Search,
     Settings2,
-    Sparkles,
     Sun,
     Upload,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipProvider } from "@/components/ui/tooltip";
-import {
-    Sidebar,
-    SidebarProvider,
-    useSidebar,
-    SidebarHeader,
-    SidebarContent,
-    SidebarFooter,
-    SidebarGroup,
-    SidebarGroupLabel,
-    SidebarMenu,
-    SidebarMenuItem,
-    SidebarMenuButton,
-    SidebarTrigger,
-} from "@/components/ui/sidebar";
 import {
     Dialog,
     DialogContent,
@@ -64,14 +47,6 @@ import {
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import {
-    CardGroup,
-    Card,
-    CardHeader,
-    CardTitle,
-    CardDescription,
-    CardContent,
-} from "@/components/ui/card";
-import {
     Accordion,
     AccordionItem,
     AccordionTrigger,
@@ -86,6 +61,7 @@ import {
     CommandMenuFooter,
 } from "@/components/ui/command-menu";
 import { ShapeProvider } from "@/lib/shape-context";
+import { cn } from "@/lib/utils";
 import {
     examples,
     initialSeeds,
@@ -101,7 +77,7 @@ const ScriptEditor = dynamic(
     {
         ssr: false,
         loading: () => (
-            <div className="h-[340px] p-6 text-muted-foreground">
+            <div className="p-6 font-mono text-[12px] text-muted-foreground">
                 Loading editor…
             </div>
         ),
@@ -115,13 +91,7 @@ export function Playground() {
         <MotionConfig reducedMotion="user">
             <ShapeProvider>
                 <TooltipProvider>
-                    <SidebarProvider
-                        width="228px"
-                        persist={false}
-                        shortcut={null}
-                    >
-                        <Workspace />
-                    </SidebarProvider>
+                    <Workspace />
                 </TooltipProvider>
             </ShapeProvider>
         </MotionConfig>
@@ -129,12 +99,7 @@ export function Playground() {
 }
 
 function Workspace() {
-    const { setOpenMobile } = useSidebar();
-    const [view, updateView] = useState<View>("playground");
-    function setView(next: View) {
-        updateView(next);
-        setOpenMobile(false);
-    }
+    const [view, setView] = useState<View>("playground");
     const [script, setScript] = useState(examples[0].code);
     const [seeds, setSeeds] = useState(initialSeeds);
     const [useTarget, setUseTarget] = useState(false);
@@ -316,480 +281,319 @@ function Workspace() {
         { value: "import", label: "Import a Carl tag", icon: Upload },
     ];
 
+    const views = [
+        { id: "playground", label: "Playground" },
+        { id: "examples", label: "Examples" },
+        { id: "guide", label: "Guide" },
+    ] as const;
+    const viewTabs = views.map((item) => (
+        <button
+            key={item.id}
+            type="button"
+            aria-current={view === item.id ? "page" : undefined}
+            onClick={() => setView(item.id)}
+            className={cn(
+                "h-7 rounded-md px-2.5 text-[13px] transition-colors",
+                view === item.id
+                    ? "bg-accent text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
+            )}
+        >
+            {item.label}
+        </button>
+    ));
+
     return (
-        <>
+        <div className="flex min-h-dvh flex-col lg:h-dvh">
             <a
                 href="#workspace"
                 className="sr-only z-50 rounded bg-background p-3 focus:not-sr-only focus:fixed"
             >
                 Skip to workspace
             </a>
-            <Sidebar rail={false} className="bg-background">
-                <SidebarHeader className="px-6 py-7">
-                    <a
-                        href="#workspace"
-                        onClick={() => setView("playground")}
-                        className="flex items-center gap-3"
+            <header className="flex h-12 shrink-0 items-center gap-2 border-b border-border px-3 sm:px-4">
+                <a
+                    href="#workspace"
+                    onClick={() => setView("playground")}
+                    className="mr-2 flex items-center gap-2"
+                >
+                    <span className="grid size-6 place-items-center rounded-md bg-linear-to-br from-(--accent-from) to-(--accent-to) font-mono text-[13px] font-bold text-(--on-accent)">
+                        b
+                    </span>
+                    <span className="hidden text-[14px] font-semibold tracking-tight sm:inline">
+                        bTagScript
+                    </span>
+                    <span className="hidden rounded border border-border px-1.5 font-mono text-[10px] leading-4 text-muted-foreground sm:inline">
+                        playground
+                    </span>
+                </a>
+                <nav aria-label="Views" className="hidden gap-0.5 md:flex">
+                    {viewTabs}
+                </nav>
+                <div className="ml-auto flex items-center gap-1">
+                    <button
+                        type="button"
+                        onClick={() => setPalette(true)}
+                        className="mr-1 hidden h-8 items-center gap-6 rounded-md border border-border bg-background pr-1.5 pl-2.5 text-[13px] text-muted-foreground transition-colors hover:border-border-strong lg:flex"
                     >
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                            <Braces size={21} />
-                        </div>
-                        <div className="text-[15px] font-semibold tracking-tight">
-                            bTagScript
-                            <span className="block text-[10px] font-normal tracking-[.2em] text-muted-foreground">
-                                PLAYGROUND
-                            </span>
-                        </div>
-                    </a>
-                </SidebarHeader>
-                <SidebarContent className="px-3">
-                    <Button
-                        variant="tertiary"
-                        className="mb-7 w-full justify-start text-muted-foreground"
-                        leadingIcon={Search}
-                        onClick={() => {
-                            setOpenMobile(false);
-                            setPalette(true);
-                        }}
-                    >
-                        Quick search{" "}
-                        <kbd className="ml-auto text-[10px]">⌘ K</kbd>
-                    </Button>
-                    <SidebarGroup>
-                        <SidebarGroupLabel>Workspace</SidebarGroupLabel>
-                        <SidebarMenu>
-                            {(
-                                [
-                                    {
-                                        id: "playground",
-                                        label: "Playground",
-                                        icon: Braces,
-                                    },
-                                    {
-                                        id: "examples",
-                                        label: "Examples",
-                                        icon: FileCode2,
-                                    },
-                                    {
-                                        id: "guide",
-                                        label: "Quick guide",
-                                        icon: BookOpen,
-                                    },
-                                ] as const
-                            ).map((item) => (
-                                <SidebarMenuItem key={item.id}>
-                                    <SidebarMenuButton
-                                        icon={item.icon}
-                                        isActive={view === item.id}
-                                        onClick={() => setView(item.id)}
-                                    >
-                                        {item.label}
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            ))}
-                        </SidebarMenu>
-                    </SidebarGroup>
-                    <SidebarGroup className="mt-7">
-                        <SidebarGroupLabel>
-                            Start with an idea
-                        </SidebarGroupLabel>
-                        <SidebarMenu>
-                            {examples.slice(0, 3).map((example, index) => (
-                                <SidebarMenuItem key={example.name}>
-                                    <SidebarMenuButton
-                                        onClick={() => loadExample(index)}
-                                    >
-                                        <span className="mr-1 text-muted-foreground">
-                                            {String(index + 1).padStart(2, "0")}
-                                        </span>
-                                        {example.name}
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            ))}
-                        </SidebarMenu>
-                    </SidebarGroup>
-                </SidebarContent>
-                <SidebarFooter className="gap-4 p-5">
-                    <div className="rounded-xl border border-border p-4">
-                        <Leaf size={18} className="mb-3 text-primary" />
-                        <p className="text-xs font-medium">
-                            Room to experiment.
-                        </p>
-                        <p className="mt-2 text-[11px] leading-5 text-muted-foreground">
-                            Small ideas turn into useful tags.
-                            <br />
-                            Make something yours.
-                        </p>
-                    </div>
-                    <Button
-                        variant="ghost"
-                        leadingIcon={Settings2}
-                        className="justify-start"
-                        onClick={() => {
-                            setOpenMobile(false);
-                            setSettings(true);
-                        }}
-                    >
-                        Workspace settings
-                    </Button>
-                    <a
-                        href="https://github.com/benz206/bTagScriptPlayground"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="flex items-center gap-2 px-3 text-xs text-muted-foreground"
-                    >
-                        <GitFork size={14} />
-                        View on GitHub
-                        <ArrowUpRight size={13} className="ml-auto" />
-                    </a>
-                </SidebarFooter>
-            </Sidebar>
-            <div className="min-w-0 flex-1">
-                <header className="flex h-[76px] items-center justify-between border-b border-border px-5 lg:px-9">
-                    <div className="flex items-center gap-3">
-                        <SidebarTrigger className="md:hidden" />
-                        <span className="text-xs text-muted-foreground">
-                            Workspace
+                        <span className="flex items-center gap-2">
+                            <Search size={14} />
+                            Jump to…
                         </span>
-                        <span className="text-border">/</span>
-                        <span className="text-xs capitalize">
-                            {view === "guide" ? "Quick guide" : view}
-                        </span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <Badge
-                            variant="dot"
-                            color="green"
-                            className="hidden sm:inline-flex"
-                        >
-                            A space for your tags
-                        </Badge>
-                        <Tooltip
-                            content={
+                        <kbd className="rounded border border-border px-1.5 font-mono text-[11px] text-faint">
+                            ⌘K
+                        </kbd>
+                    </button>
+                    <Tooltip
+                        content={
+                            theme === "dark"
+                                ? "Switch to light mode"
+                                : "Switch to dark mode"
+                        }
+                    >
+                        <Button
+                            variant="ghost"
+                            size="icon-compact"
+                            aria-label={
                                 theme === "dark"
                                     ? "Switch to light mode"
                                     : "Switch to dark mode"
                             }
+                            disabled={!ready}
+                            onClick={() =>
+                                setTheme(theme === "dark" ? "light" : "dark")
+                            }
                         >
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                aria-label={
-                                    theme === "dark"
-                                        ? "Switch to light mode"
-                                        : "Switch to dark mode"
-                                }
-                                disabled={!ready}
-                                onClick={() =>
-                                    setTheme(
-                                        theme === "dark" ? "light" : "dark",
-                                    )
-                                }
-                            >
-                                {theme === "dark" ? (
-                                    <Sun size={16} />
-                                ) : (
-                                    <Moon size={16} />
-                                )}
-                            </Button>
-                        </Tooltip>
-                        <Tooltip content="Workspace settings">
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                aria-label="Workspace settings"
-                                onClick={() => {
-                                    setOpenMobile(false);
-                                    setSettings(true);
-                                }}
-                            >
-                                <Settings2 size={16} />
-                            </Button>
-                        </Tooltip>
-                    </div>
-                </header>
-                <main
-                    id="workspace"
-                    className="mx-auto max-w-[1600px] px-5 py-8 lg:px-9 lg:py-10"
-                >
-                    <div className="mb-8 flex flex-wrap items-end justify-between gap-5">
-                        <div>
-                            <p className="eyebrow mb-3">
-                                {view === "playground"
-                                    ? "Write. Run. Refine."
-                                    : "Explore the possibilities"}
-                            </p>
-                            <h1 className="text-3xl font-medium tracking-[-.045em] sm:text-[36px]">
-                                {view === "playground"
-                                    ? "Good tags start here."
-                                    : view === "examples"
-                                      ? "A place to begin."
-                                      : "Meet your playground."}
-                            </h1>
-                            <p className="mt-3 text-sm text-muted-foreground">
-                                {view === "playground"
-                                    ? "Give your ideas a little room to run."
-                                    : "A little inspiration for whatever you’re building next."}
-                            </p>
-                        </div>
-                        {view === "playground" && (
-                            <div className="flex gap-2">
-                                <Button
-                                    variant="secondary"
-                                    leadingIcon={Upload}
-                                    onClick={() => setImportOpen(true)}
-                                >
-                                    Import tag
-                                </Button>
-                                <Button
-                                    leadingIcon={Play}
-                                    loading={busy}
-                                    disabled={!ready || !script.trim()}
-                                    onClick={run}
-                                >
-                                    Run tag{" "}
-                                    <kbd className="ml-3 hidden text-[10px] opacity-60 sm:inline">
-                                        ⌘ ↵
-                                    </kbd>
-                                </Button>
-                            </div>
+                            {theme === "dark" ? (
+                                <Sun size={15} />
+                            ) : (
+                                <Moon size={15} />
+                            )}
+                        </Button>
+                    </Tooltip>
+                    <Tooltip content="Workspace settings">
+                        <Button
+                            variant="ghost"
+                            size="icon-compact"
+                            aria-label="Workspace settings"
+                            onClick={() => setSettings(true)}
+                        >
+                            <Settings2 size={15} />
+                        </Button>
+                    </Tooltip>
+                    <span className="mx-1.5 h-5 w-px bg-border" />
+                    <Button
+                        variant="secondary"
+                        size="compact"
+                        leadingIcon={Upload}
+                        aria-label="Import tag"
+                        onClick={() => setImportOpen(true)}
+                    >
+                        <span className="hidden sm:inline">Import tag</span>
+                    </Button>
+                    <button
+                        type="button"
+                        disabled={!ready || busy || !script.trim()}
+                        onClick={run}
+                        className="ml-1 inline-flex h-7 items-center gap-1.5 rounded-md bg-linear-to-r from-(--accent-from) to-(--accent-to) px-3 text-[12px] font-medium whitespace-nowrap text-(--on-accent) transition hover:brightness-110 disabled:pointer-events-none disabled:opacity-50"
+                    >
+                        {busy ? (
+                            <LoaderCircle size={13} className="animate-spin" />
+                        ) : (
+                            <Play size={13} fill="currentColor" />
                         )}
-                    </div>
-                    {notice && (
-                        <div
-                            role="status"
-                            className="mb-5 flex items-center justify-between rounded-xl border border-border bg-surface-2 p-3 text-xs"
-                        >
-                            {notice}
-                            <Button
-                                variant="ghost"
-                                size="compact"
-                                onClick={() => setNotice("")}
-                            >
-                                Dismiss
-                            </Button>
-                        </div>
-                    )}
-                    {view === "playground" && (
-                        <>
-                            <div className="grid items-start gap-5 xl:grid-cols-[minmax(0,1fr)_290px]">
-                                <div className="min-w-0">
-                                    <div className="grid gap-5 lg:grid-cols-2">
-                                        <section className="workspace-panel">
-                                            <div className="panel-heading">
-                                                <div className="flex items-center gap-2">
-                                                    <FileCode2
-                                                        size={16}
-                                                        className="text-muted-foreground"
-                                                    />
-                                                    <h2 className="font-medium">
-                                                        my-tag.tagscript
-                                                    </h2>
-                                                </div>
-                                                <DropdownMenu>
-                                                    <DropdownTrigger
-                                                        render={
-                                                            <Button
-                                                                variant="ghost"
-                                                                size="icon"
-                                                                aria-label="Script options"
-                                                            >
-                                                                <MoreHorizontal
-                                                                    size={16}
-                                                                />
-                                                            </Button>
-                                                        }
-                                                    />
-                                                    <DropdownContent>
-                                                        <MenuItem
-                                                            index={0}
-                                                            label="Export script"
-                                                            icon={
-                                                                ArrowDownToLine
-                                                            }
-                                                            onSelect={
-                                                                exportScript
-                                                            }
-                                                        />
-                                                        <MenuItem
-                                                            index={1}
-                                                            label="Import a file"
-                                                            icon={Upload}
-                                                            onSelect={() =>
-                                                                fileInput.current?.click()
-                                                            }
-                                                        />
-                                                        <MenuItem
-                                                            index={2}
-                                                            label="New blank tag"
-                                                            icon={Plus}
-                                                            onSelect={() => {
-                                                                setScript("");
-                                                                setResult(null);
-                                                                setError("");
-                                                                setElapsed(
-                                                                    null,
-                                                                );
-                                                            }}
-                                                        />
-                                                    </DropdownContent>
-                                                </DropdownMenu>
-                                            </div>
-                                            <div className="flex items-center justify-between border-b border-border px-5 py-3">
-                                                <Badge size="compact">
-                                                    TagScript
-                                                </Badge>
-                                                <span className="text-[11px] text-muted-foreground">
-                                                    Your next good idea ↓
-                                                </span>
-                                            </div>
-                                            <ScriptEditor
-                                                value={script}
-                                                onChange={setScript}
-                                                fontSize={fontSize}
-                                            />
-                                            <div className="flex min-h-12 items-center justify-between border-t border-border px-5 text-[11px] text-muted-foreground">
-                                                <span>
-                                                    {script.split("\n").length}{" "}
-                                                    lines · {script.length}{" "}
-                                                    characters
-                                                </span>
-                                                <span className="flex items-center gap-1">
-                                                    <Check size={12} />
-                                                    {storage === "off"
-                                                        ? "Autosave off"
-                                                        : storage === "local"
-                                                          ? "Saved in browser"
-                                                          : "Saved for session"}
-                                                </span>
-                                            </div>
-                                        </section>
-                                        <ResultsPanel
-                                            result={result}
-                                            busy={busy}
-                                            error={error}
-                                            elapsed={elapsed}
-                                            clear={(section) =>
-                                                setResult((current) =>
-                                                    current
-                                                        ? section === "actions"
-                                                            ? {
-                                                                  ...current,
-                                                                  actions: {},
-                                                              }
-                                                            : {
-                                                                  ...current,
-                                                                  extras: {
-                                                                      debug: {},
-                                                                  },
-                                                              }
-                                                        : null,
-                                                )
+                        Run tag
+                        <kbd className="hidden font-mono text-[10px] opacity-60 sm:inline">
+                            ⌘↵
+                        </kbd>
+                    </button>
+                </div>
+            </header>
+            <nav
+                aria-label="Views"
+                className="flex shrink-0 gap-0.5 border-b border-border px-3 py-1.5 md:hidden"
+            >
+                {viewTabs}
+            </nav>
+            {notice && (
+                <div
+                    role="status"
+                    className="flex shrink-0 items-center justify-between gap-3 border-b border-border bg-ctp-mauve/8 py-1 pr-2 pl-4 text-[12px]"
+                >
+                    {notice}
+                    <Button
+                        variant="ghost"
+                        size="compact"
+                        onClick={() => setNotice("")}
+                    >
+                        Dismiss
+                    </Button>
+                </div>
+            )}
+            <main
+                id="workspace"
+                className="min-h-0 flex-1 bg-background lg:overflow-hidden"
+            >
+                {view === "playground" && (
+                    <div className="grid lg:h-full lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_300px] xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_340px]">
+                        <h1 className="sr-only">Playground</h1>
+                        <section className="flex h-[420px] flex-col border-b border-border lg:h-auto lg:min-h-0 lg:border-r lg:border-b-0">
+                            <div className="flex h-11 shrink-0 items-stretch justify-between border-b border-border bg-chrome pr-2">
+                                <div className="relative flex items-center gap-2 border-r border-border bg-background px-4 font-mono text-[12px]">
+                                    <span className="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-(--accent-from) to-(--accent-to)" />
+                                    <FileCode2
+                                        size={13}
+                                        className="text-ctp-mauve"
+                                    />
+                                    <h2>my-tag.tagscript</h2>
+                                </div>
+                                <div className="flex items-center">
+                                    <DropdownMenu>
+                                        <DropdownTrigger
+                                            render={
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon-compact"
+                                                    aria-label="Script options"
+                                                >
+                                                    <MoreHorizontal size={15} />
+                                                </Button>
                                             }
                                         />
-                                    </div>
-                                    <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-dashed border-border px-5 py-4">
-                                        <div className="flex items-center gap-3">
-                                            <Sparkles
-                                                size={16}
-                                                className="text-primary"
+                                        <DropdownContent>
+                                            <MenuItem
+                                                index={0}
+                                                label="Export script"
+                                                icon={ArrowDownToLine}
+                                                onSelect={exportScript}
                                             />
-                                            <p className="text-xs text-muted-foreground">
-                                                A blank page isn’t always the
-                                                best starting point.
-                                            </p>
-                                        </div>
-                                        <Button
-                                            variant="ghost"
-                                            size="compact"
-                                            trailingIcon={ArrowUpRight}
-                                            onClick={() => setView("examples")}
-                                        >
-                                            Try an example
-                                        </Button>
-                                    </div>
+                                            <MenuItem
+                                                index={1}
+                                                label="Import a file"
+                                                icon={Upload}
+                                                onSelect={() =>
+                                                    fileInput.current?.click()
+                                                }
+                                            />
+                                            <MenuItem
+                                                index={2}
+                                                label="New blank tag"
+                                                icon={Plus}
+                                                onSelect={() => {
+                                                    setScript("");
+                                                    setResult(null);
+                                                    setError("");
+                                                    setElapsed(null);
+                                                }}
+                                            />
+                                        </DropdownContent>
+                                    </DropdownMenu>
                                 </div>
-                                <SeedPanel
-                                    seeds={seeds}
-                                    setSeeds={setSeeds}
-                                    useTarget={useTarget}
-                                    setUseTarget={setUseTarget}
+                            </div>
+                            <div className="min-h-0 flex-1">
+                                <ScriptEditor
+                                    value={script}
+                                    onChange={setScript}
+                                    fontSize={fontSize}
                                 />
                             </div>
-                            <footer className="mt-8 flex flex-wrap justify-between gap-2 text-[10px] text-muted-foreground">
-                                <span>
-                                    Made for the little things that make your
-                                    server yours.
-                                </span>
-                                <span>
-                                    Powered by bTagScript · Crafted with Fluid
-                                    Functionalism
-                                </span>
-                            </footer>
-                        </>
-                    )}
-                    {view === "examples" && (
-                        <CardGroup
-                            columns={1}
-                            separated
-                            border="outlined"
-                            className="grid gap-4 md:!grid-cols-2"
-                        >
-                            {examples.map((example, index) => (
-                                <Card
-                                    key={example.name}
-                                    label={`Load ${example.name}`}
-                                    onClick={() => loadExample(index)}
-                                >
-                                    <CardHeader>
-                                        <Badge color="green">
-                                            {example.category}
-                                        </Badge>
-                                        <CardTitle className="mt-4">
+                        </section>
+                        <ResultsPanel
+                            result={result}
+                            busy={busy}
+                            error={error}
+                            elapsed={elapsed}
+                            clear={(section) =>
+                                setResult((current) =>
+                                    current
+                                        ? section === "actions"
+                                            ? {
+                                                  ...current,
+                                                  actions: {},
+                                              }
+                                            : {
+                                                  ...current,
+                                                  extras: {
+                                                      debug: {},
+                                                  },
+                                              }
+                                        : null,
+                                )
+                            }
+                        />
+                        <SeedPanel
+                            seeds={seeds}
+                            setSeeds={setSeeds}
+                            useTarget={useTarget}
+                            setUseTarget={setUseTarget}
+                        />
+                    </div>
+                )}
+                {view === "examples" && (
+                    <div className="h-full overflow-y-auto">
+                        <div className="mx-auto max-w-5xl px-5 py-10 lg:py-14">
+                            <h1 className="text-2xl font-semibold tracking-tight">
+                                Examples
+                            </h1>
+                            <p className="mt-1.5 text-sm text-muted-foreground">
+                                Start from a working tag. Opening one replaces
+                                what’s in the editor.
+                            </p>
+                            <div className="mt-8 grid gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-2">
+                                {examples.map((example, index) => (
+                                    <button
+                                        key={example.name}
+                                        type="button"
+                                        onClick={() => loadExample(index)}
+                                        className="group flex flex-col bg-background p-5 text-left transition-colors hover:bg-chrome"
+                                    >
+                                        <span className="flex items-center justify-between font-mono text-[11px] text-muted-foreground">
+                                            {String(index + 1).padStart(2, "0")}{" "}
+                                            · {example.category}
+                                            <ArrowUpRight
+                                                size={14}
+                                                className="text-faint transition-colors group-hover:text-ctp-mauve"
+                                            />
+                                        </span>
+                                        <h2 className="mt-3 font-medium">
                                             {example.name}
-                                        </CardTitle>
-                                        <CardDescription>
+                                        </h2>
+                                        <p className="mt-1 text-[13px] text-muted-foreground">
                                             {example.description}
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <pre className="overflow-x-auto rounded-lg bg-muted p-4 text-xs leading-7">
+                                        </p>
+                                        <pre className="mt-4 overflow-x-auto rounded-md border border-border bg-chrome p-3 font-mono text-[12px] leading-6">
                                             {example.code}
                                         </pre>
-                                        <span className="mt-5 flex items-center gap-2 text-xs">
-                                            Open in playground{" "}
-                                            <ArrowUpRight size={14} />
-                                        </span>
-                                    </CardContent>
-                                </Card>
-                            ))}
-                        </CardGroup>
-                    )}
-                    {view === "guide" && (
-                        <div className="max-w-3xl space-y-7">
-                            <div className="workspace-panel p-6">
-                                <FlaskConical className="mb-5 text-primary" />
-                                <h2 className="text-xl font-medium">
-                                    A safe place to test your ideas.
-                                </h2>
-                                <p className="mt-3 leading-7 text-muted-foreground">
-                                    Write a tag, give it some context, and run
-                                    it. The playground sends your script and
-                                    seeds to the bTagScript engine. It shows the
-                                    response, actions, and variables without
-                                    executing Discord commands.
-                                </p>
+                                    </button>
+                                ))}
                             </div>
+                        </div>
+                    </div>
+                )}
+                {view === "guide" && (
+                    <div className="h-full overflow-y-auto">
+                        <div className="mx-auto max-w-2xl px-5 py-10 lg:py-14">
+                            <h1 className="text-2xl font-semibold tracking-tight">
+                                Guide
+                            </h1>
+                            <p className="mt-3 leading-7 text-muted-foreground">
+                                Write a tag, give it some context, and run it.
+                                The playground sends your script and seeds to
+                                the bTagScript engine. It shows the response,
+                                actions, and variables without executing
+                                Discord commands.
+                            </p>
                             <Accordion
                                 type="single"
                                 collapsible
                                 defaultValue="seeds"
+                                className="mt-8 w-full"
                             >
                                 {[
                                     [
                                         "seeds",
                                         "What are seeds?",
-                                        "Seeds provide the user, channel, target, and arguments that a Discord bot would normally supply. Edit them in Set the scene. Unless enabled separately, target uses the same values as user.",
+                                        "Seeds provide the user, channel, target, and arguments that a Discord bot would normally supply. Edit them in the Seeds pane. Unless enabled separately, target uses the same values as user.",
                                     ],
                                     [
                                         "save",
@@ -804,7 +608,7 @@ function Workspace() {
                                     [
                                         "run",
                                         "What happens when I run a tag?",
-                                        "The response appears in Output. Actions shows what the bot would do, and Debug lists the variables returned by the engine. Run with the button or Command/Control + Enter. Network and engine errors appear beside the editor.",
+                                        "The response appears in Output. Actions shows what the bot would do, and Debug lists the variables returned by the engine. Run with the button or Command/Control + Enter. Network and engine errors appear in the Output pane.",
                                     ],
                                 ].map(([id, title, text], index) => (
                                     <AccordionItem
@@ -812,9 +616,7 @@ function Workspace() {
                                         value={id}
                                         index={index}
                                     >
-                                        <AccordionTrigger>
-                                            {title}
-                                        </AccordionTrigger>
+                                        <AccordionTrigger>{title}</AccordionTrigger>
                                         <AccordionContent>
                                             <p className="px-3 pb-4 text-sm leading-7 text-muted-foreground">
                                                 {text}
@@ -827,6 +629,7 @@ function Workspace() {
                                 asChild
                                 variant="secondary"
                                 trailingIcon={ArrowUpRight}
+                                className="mt-8"
                             >
                                 <a
                                     href="https://btagscript.readthedocs.io/en/latest/"
@@ -837,9 +640,34 @@ function Workspace() {
                                 </a>
                             </Button>
                         </div>
-                    )}
-                </main>
-            </div>
+                    </div>
+                )}
+            </main>
+            <footer className="flex h-7 shrink-0 items-center gap-4 border-t border-border px-4 font-mono text-[11px] text-muted-foreground">
+                <span>
+                    {script.split("\n").length} lines · {script.length} chars
+                </span>
+                <span className="flex items-center gap-1">
+                    <Check size={11} />
+                    {storage === "off"
+                        ? "Autosave off"
+                        : storage === "local"
+                          ? "Saved in browser"
+                          : "Saved for session"}
+                </span>
+                <span className="ml-auto hidden sm:inline">
+                    bTagScript engine
+                </span>
+                <a
+                    href="https://github.com/benz206/bTagScriptPlayground"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-1 transition-colors hover:text-foreground max-sm:ml-auto"
+                >
+                    <GitFork size={11} />
+                    GitHub
+                </a>
+            </footer>
             <input
                 ref={fileInput}
                 type="file"
@@ -1018,6 +846,6 @@ function Workspace() {
                     <CommandMenuFooter />
                 </CommandMenu>
             </CommandMenuDialog>
-        </>
+        </div>
     );
 }

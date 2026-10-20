@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Braces, Check, Copy, Terminal, Trash2 } from "lucide-react";
+import { Check, Copy, LoaderCircle, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabItem, TabPanel } from "@/components/ui/tabs";
 import {
     Table,
@@ -13,14 +12,7 @@ import {
     TableHead,
     TableCell,
 } from "@/components/ui/table";
-import { ChatMessage } from "@/components/ui/chat-message";
-import { ThinkingIndicator } from "@/components/ui/thinking-indicator";
-import {
-    ThinkingSteps,
-    ThinkingStepsHeader,
-    ThinkingStepsContent,
-    ThinkingStep,
-} from "@/components/ui/thinking-steps";
+import { cn } from "@/lib/utils";
 import { displayValue, type TagResult } from "@/lib/tagscript";
 
 export function ResultsPanel({
@@ -54,24 +46,22 @@ export function ResultsPanel({
         ([key]) => !["user", "target", "channel", "args"].includes(key),
     );
     return (
-        <section className="workspace-panel flex min-h-[490px] flex-col">
-            <div className="panel-heading">
-                <div className="flex items-center gap-2">
-                    <Terminal size={16} className="text-muted-foreground" />
-                    <h2 className="font-medium">Output</h2>
-                </div>
-                <Badge
-                    variant="dot"
-                    color={
-                        busy
-                            ? "amber"
-                            : error
-                              ? "red"
-                              : result
-                                ? "green"
-                                : "gray"
-                    }
-                >
+        <section className="flex min-h-[460px] flex-col border-b border-border lg:min-h-0 lg:border-r lg:border-b-0">
+            <div className="pane-head">
+                <h2 className="text-[13px] font-medium">Output</h2>
+                <span className="flex items-center gap-1.5 font-mono text-[11px] text-muted-foreground">
+                    <span
+                        className={cn(
+                            "size-1.5 rounded-full",
+                            busy
+                                ? "animate-pulse bg-ctp-yellow"
+                                : error
+                                  ? "bg-ctp-red"
+                                  : result
+                                    ? "bg-ctp-green"
+                                    : "bg-faint",
+                        )}
+                    />
                     {busy
                         ? "Running"
                         : error
@@ -79,10 +69,10 @@ export function ResultsPanel({
                           : result
                             ? "Complete"
                             : "Ready"}
-                </Badge>
+                </span>
             </div>
-            <Tabs defaultValue="response" className="flex flex-1 flex-col">
-                <div className="px-4 pt-4">
+            <Tabs defaultValue="response" className="flex min-h-0 flex-1 flex-col">
+                <div className="px-3 pt-3">
                     <TabsList className="w-full">
                         <TabItem value="response" label="Response" />
                         <TabItem
@@ -95,56 +85,62 @@ export function ResultsPanel({
                         />
                     </TabsList>
                 </div>
-                <div className="flex-1 p-5" aria-live="polite" aria-busy={busy}>
+                <div
+                    className="min-h-0 flex-1 overflow-y-auto p-4"
+                    aria-live="polite"
+                    aria-busy={busy}
+                >
                     {busy && (
-                        <div className="mb-4">
-                            <ThinkingIndicator />
-                            <p className="text-xs text-muted-foreground">
-                                Sending your script to the TagScript engine…
-                            </p>
-                        </div>
+                        <p className="mb-4 flex items-center gap-2 text-[13px] text-muted-foreground">
+                            <LoaderCircle
+                                size={14}
+                                className="animate-spin text-ctp-mauve"
+                            />
+                            Sending your script to the TagScript engine…
+                        </p>
                     )}
                     {error && (
                         <p
                             role="alert"
-                            className="mb-4 rounded-xl bg-destructive-light p-4 text-sm text-destructive"
+                            className="mb-4 rounded-md border border-ctp-red/30 bg-ctp-red/8 p-3 text-[13px] text-ctp-red"
                         >
                             {error}
                         </p>
                     )}
                     <TabPanel value="response">
                         {result ? (
-                            <div>
-                                <div className="mb-4 flex items-center gap-2">
-                                    <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-accent font-mono text-primary">
-                                        b.
-                                    </div>
-                                    <span className="text-xs font-medium">
-                                        TagScript
-                                    </span>
-                                    <Badge size="compact">BOT</Badge>
+                            <div className="flex gap-3 rounded-md px-1 py-1">
+                                <div className="grid size-9 shrink-0 place-items-center rounded-full bg-linear-to-br from-(--accent-from) to-(--accent-to) font-mono text-sm font-bold text-(--on-accent)">
+                                    b
                                 </div>
-                                <ChatMessage from="assistant">
-                                    <pre className="whitespace-pre-wrap break-words font-sans text-sm leading-7">
+                                <div className="min-w-0 flex-1">
+                                    <div className="flex items-center gap-1.5">
+                                        <span className="text-[13px] font-semibold">
+                                            TagScript
+                                        </span>
+                                        <span className="rounded bg-ctp-blue/15 px-1 font-mono text-[10px] leading-4 font-semibold text-ctp-blue">
+                                            BOT
+                                        </span>
+                                    </div>
+                                    <pre className="mt-1 font-sans text-sm leading-6 break-words whitespace-pre-wrap">
                                         {result.body ||
                                             "This tag returned an empty response."}
                                     </pre>
-                                </ChatMessage>
+                                </div>
                             </div>
                         ) : (
                             !busy &&
                             !error && (
-                                <div className="flex min-h-[260px] flex-col items-center justify-center text-center">
-                                    <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-dashed border-border text-muted-foreground">
-                                        <Braces size={24} strokeWidth={1.3} />
-                                    </div>
-                                    <h3 className="font-medium">
-                                        A little code. A little possibility.
+                                <div className="flex min-h-[240px] flex-col items-center justify-center text-center">
+                                    <kbd className="rounded-md border border-border bg-chrome px-2 py-1 font-mono text-[12px] text-muted-foreground">
+                                        ⌘ ↵
+                                    </kbd>
+                                    <h3 className="mt-4 text-[13px] font-medium">
+                                        Nothing has run yet
                                     </h3>
-                                    <p className="mt-2 max-w-56 text-xs leading-6 text-muted-foreground">
-                                        Run your tag to see what it says.
-                                        <br />
-                                        Your response will appear right here.
+                                    <p className="mt-1 max-w-60 text-[12px] leading-5 text-muted-foreground">
+                                        Run your tag and the bot’s reply shows
+                                        up here.
                                     </p>
                                 </div>
                             )
@@ -207,7 +203,7 @@ export function ResultsPanel({
                                     </Button>
                                 </>
                             ) : (
-                                <p className="py-16 text-center text-sm text-muted-foreground">
+                                <p className="py-16 text-center text-[13px] text-muted-foreground">
                                     {result
                                         ? `No ${name === "actions" ? "actions" : "variables"} returned by this tag.`
                                         : `Run a tag to inspect its ${name}.`}
@@ -217,30 +213,8 @@ export function ResultsPanel({
                     ))}
                 </div>
             </Tabs>
-            {result && (
-                <div className="border-t border-border px-4 py-2">
-                    <ThinkingSteps>
-                        <ThinkingStepsHeader>
-                            Execution details
-                        </ThinkingStepsHeader>
-                        <ThinkingStepsContent>
-                            <ThinkingStep
-                                label="Request sent"
-                                description="Script and seed context submitted."
-                                status="complete"
-                            />
-                            <ThinkingStep
-                                label="Response received"
-                                description={`${elapsed} ms · ${actions.length} actions · ${debug.length} variables`}
-                                status="complete"
-                                isLast
-                            />
-                        </ThinkingStepsContent>
-                    </ThinkingSteps>
-                </div>
-            )}
-            <div className="flex min-h-12 items-center justify-between border-t border-border px-5">
-                <span className="text-[11px] text-muted-foreground">
+            <div className="flex h-10 shrink-0 items-center justify-between border-t border-border pr-2 pl-4">
+                <span className="font-mono text-[11px] text-muted-foreground">
                     {elapsed === null
                         ? "Waiting for your first run"
                         : `Completed in ${elapsed} ms`}
@@ -256,7 +230,7 @@ export function ResultsPanel({
                 </Button>
             </div>
             {copyError && (
-                <p role="alert" className="px-5 pb-3 text-xs text-destructive">
+                <p role="alert" className="px-4 pb-3 text-xs text-destructive">
                     {copyError}
                 </p>
             )}
